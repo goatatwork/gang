@@ -95,6 +95,25 @@ services:
       - ./:/var/www/html
     networks:
       - gangnet
+  socat:
+    container_name: gang_socat
+    build:
+      context: ./docker/socat
+      dockerfile: Dockerfile
+    image: "goatatwork/socat:${APP_ENV}"
+    labels:
+      - traefik.backend=gang_socat
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefixStrip:/dockerapi"
+      - "traefik.frontend.redirect.regex=^(.*)/dockerapi$$"
+      - "traefik.frontend.redirect.replacement=$$1/dockerapi/"
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefix:/dockerapi;ReplacePathRegex: ^/dockerapi/(.*) /$$1"
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gang_proxynet
+    command: ["TCP4-LISTEN:2375,fork,reuseaddr", "UNIX-CONNECT:/var/run/docker.sock"]
   dhcp:
     container_name: gang_dhcp
     cap_add:
