@@ -6,6 +6,8 @@
 
         <title>{{ config('app.name', '') }}</title>
 
+        <script src="https://kit.fontawesome.com/4610084635.js" crossorigin="anonymous"></script>
+
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     </head>
 
@@ -16,6 +18,20 @@
                 <div class="row pt-5">
 
                     @yield('content')
+
+                </div>
+            </div>
+
+            <div class="row fixed-bottom">
+                <div class="col border-top">
+
+                    <iframe
+                        src="{{ config('app.url') }}/dozzle/container/{{ Illuminate\Support\Str::limit($container['Id'], 12, '') }}"
+                        class="border-0"
+                        width="100%"
+                        height="200"
+                    >
+                    </iframe>
 
                 </div>
             </div>

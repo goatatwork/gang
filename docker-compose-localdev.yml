@@ -113,7 +113,25 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - gang_proxynet
+      - gangnet
     command: ["TCP4-LISTEN:2375,fork,reuseaddr", "UNIX-CONNECT:/var/run/docker.sock"]
+  dozzle:
+    container_name: gang_dozzle
+    image: amir20/dozzle:latest
+    labels:
+      - traefik.backend=gang_dozzle
+      - traefik.frontend.rule=Host:${APP_FQDN};PathPrefix:/dozzle
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=8080
+    environment:
+      DOZZLE_TAILSIZE: 1000
+      DOZZLE_SHOWALL: 'true'
+      DOZZLE_BASE: /dozzle
+      DOZZLE_FILTER: name=gang_dhcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gang_proxynet
   dhcp:
     container_name: gang_dhcp
     cap_add:

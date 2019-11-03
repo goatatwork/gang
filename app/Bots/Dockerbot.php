@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Bots;
+
+use GuzzleHttp\Client;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
+class Dockerbot
+{
+    /**
+     * The path to our access to the Docker API
+     * @var string
+     */
+    public $uri;
+
+    /**
+     * The Docker API version
+     * @var string
+     */
+    public $api_version;
+
+    /**
+     * The API endpoint path to hit
+     * @var string
+     */
+    public $path;
+
+    /**
+     * The construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->uri = 'http://socat:2375';
+        $this->api_version = 'v1.40';
+        $this->path = '';
+    }
+
+    public function getContainer($name)
+    {
+        $path = 'containers/' . $name . '/json';
+
+        $client = new Client();
+
+        $request = $client->get($this->uri . '/' . $this->api_version . '/' . $path);
+        $response = $request->getBody();
+
+        $assocArray = json_decode($response->getContents(), true);
+
+        return $assocArray;
+    }
+
+}
