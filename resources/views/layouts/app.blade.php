@@ -6,6 +6,8 @@
 
         <title>{{ config('app.name', '') }}</title>
 
+        <script src="https://kit.fontawesome.com/4610084635.js" crossorigin="anonymous"></script>
+
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     </head>
 
@@ -16,6 +18,14 @@
                 <div class="row pt-5">
 
                     @yield('content')
+
+                </div>
+            </div>
+
+            <div class="row fixed-bottom">
+                <div class="col border-top">
+
+                    thing at bottom of page
 
                 </div>
             </div>
