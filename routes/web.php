@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+
+    $dockerbot = new \App\Bots\Dockerbot();
+
+    $container = $dockerbot->getContainer('gang_dhcp');
+
+    return view('index')->with('container', $container);
 });
 
 Route::get('dnsmasq', 'DnsmasqController@index')->name('dnsmasq.index');

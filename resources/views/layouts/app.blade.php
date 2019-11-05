@@ -25,13 +25,7 @@
             <div class="row fixed-bottom">
                 <div class="col border-top">
 
-                    <iframe
-                        src="{{ config('app.url') }}/dozzle/container/{{ Illuminate\Support\Str::limit($container['Id'], 12, '') }}"
-                        class="border-0"
-                        width="100%"
-                        height="200"
-                    >
-                    </iframe>
+                    thing at bottom of page
 
                 </div>
             </div>
