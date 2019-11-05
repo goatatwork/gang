@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use App\Bots\Dockerbot;
 use Illuminate\Http\Request;
 
@@ -14,11 +15,18 @@ class DnsmasqController extends Controller
      */
     public function index()
     {
-        $dockerbot = new Dockerbot();
+        $server_config_file = Storage::disk('public')->get('dnsmasq/dnsmasq.conf');
+        $leases_file = Storage::disk('public')->get('dnsmasq/leases/dnsmasq.leases');
+        $config_files = Storage::disk('public')->files('dnsmasq/dnsmasq.d');
 
+        $dockerbot = new Dockerbot();
         $container = $dockerbot->getContainer('gang_dhcp');
 
-        return view('dnsmasq.index')->with('container', $container);
+        return view('dnsmasq.index')
+            ->with('server_config_file', $server_config_file)
+            ->with('leases_file', $leases_file)
+            ->with('config_files', $config_files)
+            ->with('container', $container);
     }
 
     /**
