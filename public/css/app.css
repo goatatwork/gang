@@ -11111,3 +11111,15 @@ body {
   margin: 0;
 }
 
+::-moz-selection {
+  background: #f7d325;
+  color: #333;
+  text-shadow: none;
+}
+
+::selection {
+  background: #f7d325;
+  color: #333;
+  text-shadow: none;
+}
+
