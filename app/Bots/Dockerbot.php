@@ -12,7 +12,7 @@ class Dockerbot
      * The path to our access to the Docker API
      * @var string
      */
-    public $uri;
+    public $base_uri;
 
     /**
      * The Docker API version
@@ -33,7 +33,7 @@ class Dockerbot
      */
     public function __construct()
     {
-        $this->uri = 'http://socat:2375';
+        $this->base_uri = 'http://socat:2375';
         $this->api_version = 'v1.40';
         $this->path = '';
     }
@@ -44,7 +44,7 @@ class Dockerbot
 
         $client = new Client();
 
-        $request = $client->get($this->uri . '/' . $this->api_version . '/' . $path);
+        $request = $client->get($this->base_uri . '/' . $this->api_version . '/' . $path);
         $response = $request->getBody();
 
         $assocArray = json_decode($response->getContents(), true);
