@@ -132,6 +132,22 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - gang_proxynet
+  websockets-server:
+    container_name: gang_echo
+    build:
+      context: ./docker/websockets-server
+      dockerfile: Dockerfile
+    image: "goatatwork/laravel-echo:${APP_ENV}"
+    labels:
+      - traefik.enable=true
+      - traefik.backend=gang_echo
+      - traefik.frontend.rule=Host:echo-${APP_FQDN}
+      - traefik.port=6001
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - gang_proxynet
+      - gangnet
   dhcp:
     container_name: gang_dhcp
     cap_add:
