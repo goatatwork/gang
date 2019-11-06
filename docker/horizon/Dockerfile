@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install -j$(nproc) intl \
     && docker-php-ext-install -j$(nproc) bcmath \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) gd
+
+RUN apt-get install -y supervisor \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -34,3 +36,7 @@ RUN mkdir /var/www/.ssh && chown www-data.www-data /var/www/.ssh
 USER www-data
 
 WORKDIR /var/www/html
+
+COPY supervisord.conf /etc/supervisord.conf
+
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]

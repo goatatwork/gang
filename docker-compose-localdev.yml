@@ -72,7 +72,7 @@ services:
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
-    image: "goatatwork/nginx:${APP_ENV}"
+    image: "gang/nginx:${APP_ENV}"
     labels:
       - traefik.backend=gang_nginx
       - traefik.frontend.rule=Host:${APP_FQDN}
@@ -88,11 +88,23 @@ services:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
-    image: "goatatwork/php-fpm:${APP_ENV}"
+    image: "gang/php-fpm:${APP_ENV}"
     labels:
       - traefik.enable=false
     volumes:
       - ./:/var/www/html
+    networks:
+      - gangnet
+  horizon:
+    container_name: gang_horizon
+    build:
+      context: ./docker/horizon
+      dockerfile: Dockerfile
+    image: "gang/horizon:${APP_ENV}"
+    labels:
+      - traefik.enable=false
+    volumes:
+      - ./:/var/www/html:cached
     networks:
       - gangnet
   socat:
@@ -100,7 +112,7 @@ services:
     build:
       context: ./docker/socat
       dockerfile: Dockerfile
-    image: "goatatwork/socat:${APP_ENV}"
+    image: "gang/socat:${APP_ENV}"
     labels:
       - traefik.backend=gang_socat
       - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefixStrip:/dockerapi"
@@ -137,7 +149,7 @@ services:
     build:
       context: ./docker/websockets-server
       dockerfile: Dockerfile
-    image: "goatatwork/laravel-echo:${APP_ENV}"
+    image: "gang/laravel-echo:${APP_ENV}"
     labels:
       - traefik.enable=true
       - traefik.backend=gang_echo
@@ -155,7 +167,7 @@ services:
     build:
       context: ./docker/dnsmasq
       dockerfile: Dockerfile
-    image: "goatatwork/dnsmasq:${APP_ENV}"
+    image: "gang/dnsmasq:${APP_ENV}"
     labels:
       - traefik.enable=false
     network_mode: "host"
