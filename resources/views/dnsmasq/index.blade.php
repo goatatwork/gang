@@ -59,10 +59,10 @@
 
     <div class="row mt-3">
         <div class="col">
-
+<hr>
             <iframe
                 src="{{ config('app.url') }}/dozzle/container/{{ Illuminate\Support\Str::limit($container['Id'], 12, '') }}"
-                class="border-0"
+                class="border-0 d-none"
                 width="100%"
                 height="200"
             >
