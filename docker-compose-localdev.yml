@@ -95,6 +95,21 @@ services:
       - ./:/var/www/html
     networks:
       - gangnet
+  cronish:
+    container_name: gang_cronish
+    image: "gang/php-fpm:${APP_ENV}"
+    depends_on:
+      - php
+    labels:
+      - traefik.enable=false
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: cronish
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - gangnet
+    command: ./cronish.sh
   horizon:
     container_name: gang_horizon
     build:
