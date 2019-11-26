@@ -11,14 +11,14 @@
 
             <span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.85em;"></span>
             <span class="font-weight-bold">DHPC IS RUNNING...
-                since {{ \Carbon\Carbon::create($container['State']['StartedAt'])->diffForHumans() }}
+                since {{ $container['State']['StartedAt'] }}
             </span>
 
             @else
 
             <span class="fas fa-radiation-alt text-secondary" style="font-size:1.85em;"></span>
             <span class="font-weight-bold">DHPC IS NOT RUNNING...
-                since {{ \Carbon\Carbon::create($container['State']['FinishedAt'])->diffForHumans() }}
+                since {{ $container['State']['FinishedAt'] }}
             </span>
 
             @endif

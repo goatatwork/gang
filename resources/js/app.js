@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('back_channel', require('./components/BackChannel.vue').default);
+Vue.component('file_viewer', require('./components/FileViewer.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

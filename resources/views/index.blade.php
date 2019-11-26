@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-5">
-
+            <file_viewer></file_viewer>
         </div>
 
         <div class="col-4">
