@@ -9,7 +9,9 @@ networks:
 volumes:
   portainer_data:
   mysql_data:
-  tftp_data:
+  dhcp_configs:
+  dhcp_leases:
+  tftp_files:
 
 services:
   traefik:
@@ -93,6 +95,9 @@ services:
       - traefik.enable=false
     volumes:
       - ./:/var/www/html
+      - dhcp_configs:/var/www/html/storage/app/public/dhcp_configs
+      - dhcp_leases:/var/www/html/storage/app/public/dhcp_leases
+      - tftp_files:/var/www/html/storage/app/public/tftp_files
     networks:
       - gangnet
   cronish:
@@ -187,9 +192,9 @@ services:
       - traefik.enable=false
     network_mode: "host"
     volumes:
-      - ./storage/app/public/tftp:/tftpboot
-      - ./storage/app/public/dnsmasq:/etc/dnsmasq
-      - ./storage/app/public/dnsmasq/leases:/var/lib/misc
+      - dhcp_configs:/etc/dnsmasq
+      - dhcp_leases:/var/lib/misc
+      - tftp_files:/tftpboot
     # ports:
     #   - "67:67"
     #   - "67:67/udp"

@@ -19,7 +19,15 @@ EXPOSE 53 53/udp
 EXPOSE 67 67/udp
 EXPOSE 69 69/udp
 
+RUN touch /var/lib/misc/dnsmasq.leases
+
 ADD dnsmasq.conf /etc/dnsmasq/dnsmasq.conf
+
+RUN mkdir /tftpboot
+RUN mkdir /etc/dnsmasq/dnsmasq.d
+RUN chown -R www-data.www-data /tftpboot
+RUN chown -R www-data.www-data /etc/dnsmasq
+RUN chown -R www-data.www-data /var/lib/misc
 
 CMD ["dnsmasq", "-k", "--log-facility=-", "--conf-file=/etc/dnsmasq/dnsmasq.conf"]
 ENTRYPOINT []
