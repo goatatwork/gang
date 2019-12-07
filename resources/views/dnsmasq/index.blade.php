@@ -4,42 +4,65 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="row mb-5">
+
+        <div class="col-2">
+            <ul class="list-group list-group-flush">
+                <a href="{{ route('home') }}" class="list-group-item bg-light">Home</a>
+                <a href="{{ route('dnsmasq.index') }}" class="list-group-item bg-light">Dnsmasq</a>
+                <a href="{{ route('horizon.index') }}" class="list-group-item bg-light">Horizon</a>
+                <a href="/traefik" class="list-group-item bg-light">Traefik</a>
+                <a href="/dozzle" class="list-group-item bg-light">Dozzle</a>
+                <a href="/portainer" class="list-group-item bg-light">Portainer</a>
+            </ul>
+        </div>
+
         <div class="col">
 
-            @if($container['State']['Running'])
+            <div class="row mb-5">
+                <div class="col">
 
-            <span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.85em;"></span>
-            <span class="font-weight-bold">DHPC IS RUNNING...
-                since {{ $container['State']['StartedAt'] }}
-            </span>
+                    @if($container['State']['Running'])
 
-            @else
+                    <span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.85em;"></span>
+                    <span class="font-weight-bold">DHCP IS RUNNING...
+                        and has been since {{ $container['State']['StartedAt'] }}
+                    </span>
 
-            <span class="fas fa-radiation-alt text-secondary" style="font-size:1.85em;"></span>
-            <span class="font-weight-bold">DHPC IS NOT RUNNING...
-                since {{ $container['State']['FinishedAt'] }}
-            </span>
+                    @else
 
-            @endif
+                    <span class="fas fa-radiation-alt text-secondary" style="font-size:1.85em;"></span>
+                    <span class="font-weight-bold">DHPC IS NOT RUNNING...
+                        and has not been running since {{ $container['State']['FinishedAt'] }}
+                    </span>
+
+                    @endif
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#dnsmasq-leases-modal">Leases</button>
+                    @include('dnsmasq._leases_modal')
+                </div>
+                <div class="col">
+                    <a href="{{route('files.index')}}?load=dhcp_configs/dnsmasq.conf" class="btn btn-warning">Edit File</a>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#server-config-file-modal">Server Config File</button>
+                    @include('dnsmasq._server_config_file_modal')
+                </div>
+                <div class="col">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#config-files-modal">Config Files</button>
+                    @include('dnsmasq._config_files_modal')
+                </div>
+            </div>
+
 
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-info" data-toggle="modal" data-target="#dnsmasq-leases-modal">Leases</button>
-            @include('dnsmasq._leases_modal')
-        </div>
-        <div class="col">
-            <button class="btn btn-info" data-toggle="modal" data-target="#server-config-file-modal">Server Config File</button>
-            @include('dnsmasq._server_config_file_modal')
-        </div>
-        <div class="col">
-            <button class="btn btn-info" data-toggle="modal" data-target="#config-files-modal">Config Files</button>
-            @include('dnsmasq._config_files_modal')
-        </div>
-    </div>
+
 
     <div class="row">
         <div class="col text-info d-none">
