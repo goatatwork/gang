@@ -34,7 +34,7 @@
             </div>
 
             <div class="row fixed-bottom">
-                <div class="col border-top">
+                <div class="col-4 border-top">
 
                     thing at bottom of page
 

@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('files', 'FilesController@index')->name('files.index');
 Route::post('files', 'FilesController@store')->name('files.store');
 
+Route::get('recon', 'ReconController@index')->name('recon.index');
 Route::get('dnsmasq', 'DnsmasqController@index')->name('dnsmasq.index');
 
 Route::get('containers', function() {
