@@ -12,7 +12,7 @@
             <div class="modal-body text-dark">
                 <small>
                     <pre>
-                        {{$server_config_file}}
+{{$server_config_file}}
                     </pre>
                 </small>
             </div>

@@ -15,7 +15,9 @@
 
                 <ul class="list-group text-dark">
                     @foreach($config_files as $file)
-                        <li class="list-group-item"><small>{{ $file }}</small></li>
+                        <li class="list-group-item">
+                            <a href="/files?load={{$file}}">{{$file}}</a>
+                        </li>
                     @endforeach
                 </ul>
             </div>

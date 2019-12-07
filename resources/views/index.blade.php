@@ -5,21 +5,22 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-3">
-            <ul class="list-group">
-                <a href="{{ route('dnsmasq.index') }}" class="list-group-item bg-dark text-light">Dnsmasq</a>
-                <a href="{{ route('horizon.index') }}" class="list-group-item bg-dark text-light">Horizon</a>
-                <a href="/traefik" class="list-group-item bg-dark text-light">Traefik</a>
-                <a href="/dozzle" class="list-group-item bg-dark text-light">Dozzle</a>
-                <a href="/portainer" class="list-group-item bg-dark text-light">Portainer</a>
+        <div class="col-2">
+            <ul class="list-group list-group-flush">
+                <a href="{{ route('home') }}" class="list-group-item bg-light">Home</a>
+                <a href="{{ route('dnsmasq.index') }}" class="list-group-item bg-light">Dnsmasq</a>
+                <a href="{{ route('horizon.index') }}" class="list-group-item bg-light">Horizon</a>
+                <a href="/traefik" class="list-group-item bg-light">Traefik</a>
+                <a href="/dozzle" class="list-group-item bg-light">Dozzle</a>
+                <a href="/portainer" class="list-group-item bg-light">Portainer</a>
             </ul>
         </div>
 
-        <div class="col-5">
-            <file_viewer></file_viewer>
+        <div class="col">
+            xxxxxx
         </div>
 
-        <div class="col-4">
+        <div class="col">
             <back_channel></back_channel>
         </div>
     </div>

@@ -5,8 +5,8 @@
                 <li>
 
                     <div class="btn-group bt-group-sm" role="group" aria-label="Toolbar">
-                        <button type="button" class="btn btn-dark">One</button>
-                        <button type="button" class="btn btn-dark">Three</button>
+<!--                         <button type="button" class="btn btn-dark">One</button>
+                        <button type="button" class="btn btn-dark">Three</button> -->
 
                         <button type="button" class="btn btn-dark" @click="clearMessages">
                             <span class="fas fa-sync" :class="spinnerIconClasses"></span>

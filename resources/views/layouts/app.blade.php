@@ -5,18 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <link rel="stylesheet" type="text/css" href="/css/trix.css">
+        <script type="text/javascript" src="/js/trix.js"></script>
+
         <title>{{ config('app.name', '') }}</title>
 
         <script src="https://kit.fontawesome.com/4610084635.js" crossorigin="anonymous"></script>
 
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+
+        <script>
+            window.Laravel = {!! json_encode([
+                'csrf_token' => csrf_token(),
+            ]) !!};
+        </script>
+
     </head>
 
     <body class="white-skin">
         <div id="app">
 
             <div class="container-fluid">
-                <div class="row pt-5">
+                <div class="row pt-5 mb-5">
 
                     @yield('content')
 
