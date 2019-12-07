@@ -12,4 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+   .js('resources/js/trix.js', 'public/js/trix.js')
+   .styles([
+        'resources/css/trix.css'
+    ], 'public/css/trix.css')
    .sass('resources/sass/app.scss', 'public/css');
