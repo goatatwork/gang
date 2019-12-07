@@ -12,13 +12,9 @@
 */
 
 Route::get('/', function () {
+    return view('index');
+})->name('home');
 
-    $dockerbot = new \App\Bots\Dockerbot();
-
-    $container = $dockerbot->getContainer('gang_dhcp');
-
-    return view('index')->with('container', $container);
-});
 Route::get('files', 'FilesController@index')->name('files.index');
 Route::post('files', 'FilesController@store')->name('files.store');
 
