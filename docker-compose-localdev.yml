@@ -127,6 +127,13 @@ services:
       - ./:/var/www/html:cached
     networks:
       - gangnet
+  selenium:
+    container_name: gang_selenium
+    image: selenium/standalone-chrome:3.14
+    labels:
+      - traefik.enable=false
+    networks:
+      - gangnet
   socat:
     container_name: gang_socat
     build:
