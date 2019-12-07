@@ -19,15 +19,15 @@ Route::get('/', function () {
 
     return view('index')->with('container', $container);
 });
+Route::get('files', 'FilesController@index')->name('files.index');
+Route::post('files', 'FilesController@store')->name('files.store');
 
 Route::get('dnsmasq', 'DnsmasqController@index')->name('dnsmasq.index');
 
 Route::get('containers', function() {
     $client = new \GuzzleHttp\Client();
     $request = $client->get('http://socat:2375/v1.40/containers/json');
-
     $response = $request->getBody();
-
     $jsonResponse = json_decode($response->getContents());
 
     dd($jsonResponse);
