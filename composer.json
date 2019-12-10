@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "bestnetwork/telnet": "^1.0",
         "fideloper/proxy": "^4.0",
         "geerlingguy/ping": "^1.2",
         "guzzlehttp/guzzle": "^6.4",

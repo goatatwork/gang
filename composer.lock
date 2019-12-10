@@ -4,8 +4,68 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12f56707cba68259031cdfc8fa9f7f6d",
+    "content-hash": "ca4cdb9d71d668ec58abb3f6dad25a28",
     "packages": [
+        {
+            "name": "bestnetwork/telnet",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bestnetwork/Telnet.git",
+                "reference": "9323add29b8fa88bf5624f7d237b0b379b0a665d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bestnetwork/Telnet/zipball/9323add29b8fa88bf5624f7d237b0b379b0a665d",
+                "reference": "9323add29b8fa88bf5624f7d237b0b379b0a665d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Bestnetwork\\Telnet\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dalibor Andzakovic",
+                    "email": "dali@swerve.co.nz"
+                },
+                {
+                    "name": "Marc Ennaji"
+                },
+                {
+                    "name": "Matthias Blaser",
+                    "email": "mb@adfinis.ch"
+                },
+                {
+                    "name": "Christian Hammers",
+                    "email": "chammers@netcologne.de"
+                },
+                {
+                    "name": "Bestnetwork",
+                    "email": "reparto.sviluppo@bestnetwork.it"
+                }
+            ],
+            "description": "Telnet client in php",
+            "keywords": [
+                "client",
+                "telnet"
+            ],
+            "time": "2015-08-07T22:26:01+00:00"
+        },
         {
             "name": "cakephp/chronos",
             "version": "1.2.8",
