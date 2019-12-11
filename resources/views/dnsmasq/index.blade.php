@@ -15,6 +15,7 @@
 
                     <ul class="list-group">
                         <li class="list-group-item">
+                            <img src="https://robohash.org/Dnsmasq.png?size=75x75&set=set3" alt="Dnsmasq">
 
                             @if($container['State']['Running'])
 
@@ -47,13 +48,13 @@
 
                         <li class="list-group-item">
                             There are {{ count($config_files) }} config files.<br>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#config-files-modal">Config Files</button>
+                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#config-files-modal">Config Files</button>
                             @include('dnsmasq._config_files_modal')
                         </li>
 
                         <li class="list-group-item">
                             There are {{ count($imports) }} imports.<br>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#imports-modal">Import Files</button>
+                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#imports-modal">Import Files</button>
                             @include('dnsmasq._imports_modal')
                         </li>
 
