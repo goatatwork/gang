@@ -52,4 +52,18 @@ class Dockerbot
         return $assocArray;
     }
 
+    public function restartContainer($name)
+    {
+        $path = 'containers/' . $name . '/restart';
+
+        $client = new Client();
+
+        $request = $client->post($this->base_uri . '/' . $this->api_version . '/' . $path);
+
+        $response = $request->getStatusCode(); // 204 == love
+
+        $assocArray = json_decode($response, true);
+
+        return $assocArray;
+    }
 }
