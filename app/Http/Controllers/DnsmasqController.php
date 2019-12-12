@@ -17,6 +17,9 @@ class DnsmasqController extends Controller
     {
         $server_config_file = Storage::disk('public')->get('dhcp_configs/dnsmasq.conf');
         $leases_file = Storage::disk('public')->get('dhcp_leases/dnsmasq.leases');
+
+        $number_of_leases = count(explode("\n", $leases_file)) - 1;
+
         $config_files = Storage::disk('public')->files('dhcp_configs/dnsmasq.d');
         $imports = Storage::disk('public')->files('imports');
 
@@ -26,6 +29,7 @@ class DnsmasqController extends Controller
         return view('dnsmasq.index')
             ->with('server_config_file', $server_config_file)
             ->with('leases_file', $leases_file)
+            ->with('number_of_leases', $number_of_leases)
             ->with('config_files', $config_files)
             ->with('imports', $imports)
             ->with('container', $container);
