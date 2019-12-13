@@ -6,26 +6,16 @@ use Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class FilesController extends Controller
+class ImportsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $file = null;
-        $file_name = null;
-        $return_to = $request->headers->get('referer');
-
-        if ($request->load) {
-            $file = Storage::disk('public')->get($request->load);
-            $file = str_replace("\n","<br>",$file);
-            $file_name = $request->load;
-        }
-
-        return view('files.index')->with('file', $file)->with('file_name', $file_name)->with('return_to', $return_to);
+        //
     }
 
     /**
@@ -46,13 +36,15 @@ class FilesController extends Controller
      */
     public function store(Request $request)
     {
-        $content = str_replace("<br>","\n",$request->content);
-        $content = str_replace("<div>","",$content);
-        $content = str_replace("</div>","",$content);
+        if ($request->files_to_import) {
+            foreach ($request->files_to_import as $file) {
+                if ($file->isValid()) {
+                    $file->storeAs('imports',$file->getClientOriginalName(),'public');
+                }
+            }
+        }
 
-        Storage::disk('public')->put($request->load, $content);
-
-        return redirect()->away($request->return_to);
+        return redirect()->route('dnsmasq.index');
     }
 
     /**
@@ -84,21 +76,24 @@ class FilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $old = $request->load;
+        $new = 'dhcp_configs/dnsmasq.d/'.Str::afterLast($request->load,"/");
+
+        Storage::disk('public')->move($old,$new);
+
+        return redirect()->route('dnsmasq.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Storage::disk('public')->delete($request->load);
-
-        return redirect()->route('dnsmasq.index');
+        //
     }
 }

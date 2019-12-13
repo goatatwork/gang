@@ -13,11 +13,15 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('files', 'FilesController@index')->name('files.index');
-Route::post('files', 'FilesController@store')->name('files.store');
-
 Route::get('recon', 'ReconController@index')->name('recon.index');
 Route::get('dnsmasq', 'DnsmasqController@index')->name('dnsmasq.index');
+
+Route::get('files', 'FilesController@index')->name('files.index');
+Route::post('files', 'FilesController@store')->name('files.store');
+Route::delete('files', 'FilesController@destroy')->name('files.destroy');
+
+Route::post('imports', 'ImportsController@store')->name('imports.store');
+Route::patch('imports', 'ImportsController@update')->name('imports.update');
 
 Route::get('containers', function() {
     $client = new \GuzzleHttp\Client();
