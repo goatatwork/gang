@@ -81,7 +81,7 @@
 
                         <li class="list-group-item">
                             <span class="fas fa-cogs" style="font-size:1em;"></span>
-                            I am reading {{ count($config_files) }} config files when I start.
+                            I am reading <span class="font-weight-bold">{{ count($config_files) }}</span> config files when I start.
                             <a href="#collapsable-list-of-config-files" data-toggle="collapse">Check them out</a>
 
                             <div id="collapsable-list-of-config-files" class="row collapse">
@@ -90,7 +90,9 @@
                                     <ul class="list-group text-dark">
                                         @foreach($config_files as $file)
                                             <li class="list-group-item">
-                                                <a href="/files?load={{$file}}">{{$file}}</a>
+                                                <a href="/files?load={{$file}}">
+                                                    {{ \Illuminate\Support\Str::after($file,'dhcp_configs/dnsmasq.d/') }}
+                                                </a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -101,19 +103,48 @@
 
                         <li class="list-group-item">
                             <span class="fas fa-box" style="font-size:1em;"></span>
-                            There are {{ count($imports) }} files available for import.
+                            There are <span class="font-weight-bold">{{ count($imports) }}</span> files available for import.
                             <a href="#collapsable-list-of-imports" data-toggle="collapse">Check them out</a>
 
                             <div id="collapsable-list-of-imports" class="row collapse">
                                 <div class="col mt-5">
 
-                                    <ul class="list-group text-dark">
-                                        @foreach($imports as $file)
-                                            <li class="list-group-item">
-                                                <a href="/files?load={{$file}}">{{$file}}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    <div class="row">
+                                        <div class="col">
+                                            <ul class="list-group text-dark">
+                                                @foreach($imports as $file)
+                                                    <li class="list-group-item" style="font-size:.85rem">
+                                                        <a href="/files?load={{$file}}">
+                                                            {{ \Illuminate\Support\Str::after($file,'imports/') }}
+                                                        </a>
+
+                                                        <div class="btn-group btn-group-sm float-right" role="group" aria-label="File Controls">
+                                                            <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button class="btn btn-sm btn-secondary" type="submit">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
+
+                                                            <form method="POST" action="{{ route('imports.update') }}?load={{ $file }}">
+                                                                @method('PATCH')
+                                                                @csrf
+                                                                <button class="btn btn-sm btn-secondary" type="submit">
+                                                                    <i class="fas fa-candy-cane"></i>
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <file_uploader form-action="{{ route('imports.store') }}"></file_uploader>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
