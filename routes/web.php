@@ -23,6 +23,8 @@ Route::delete('files', 'FilesController@destroy')->name('files.destroy');
 Route::post('imports', 'ImportsController@store')->name('imports.store');
 Route::patch('imports', 'ImportsController@update')->name('imports.update');
 
+Route::patch('dockerbot', 'DockerbotController@update')->name('dockerbot.update');
+
 Route::get('containers', function() {
     $client = new \GuzzleHttp\Client();
     $request = $client->get('http://socat:2375/v1.40/containers/json');
