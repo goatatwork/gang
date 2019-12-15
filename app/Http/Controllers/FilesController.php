@@ -52,7 +52,8 @@ class FilesController extends Controller
 
         Storage::disk('public')->put($request->load, $content);
 
-        return redirect()->away($request->return_to);
+        return redirect()->away($request->return_to)
+            ->with('status', $request->load . ' has been saved');
     }
 
     /**
@@ -99,6 +100,7 @@ class FilesController extends Controller
     {
         Storage::disk('public')->delete($request->load);
 
-        return redirect()->route('dnsmasq.index');
+        return redirect()->route('dnsmasq.index')
+            ->with('status', $request->load . ' has been deleted');
     }
 }

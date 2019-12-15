@@ -71,7 +71,7 @@ class DockerbotController extends Controller
     {
         event(new ContainerAction($request->action));
 
-        return redirect()->route('dnsmasq.index');
+        return redirect()->route('dnsmasq.index')->with('status', 'Processing request to '.$request->action.' Dnsmasq');
     }
 
     /**

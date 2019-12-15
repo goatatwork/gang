@@ -44,7 +44,8 @@ class ImportsController extends Controller
             }
         }
 
-        return redirect()->route('dnsmasq.index');
+        return redirect()->route('dnsmasq.index')
+            ->with('status', 'Upload successful');
     }
 
     /**
@@ -83,7 +84,8 @@ class ImportsController extends Controller
 
         Storage::disk('public')->move($old,$new);
 
-        return redirect()->route('dnsmasq.index');
+        return redirect()->route('dnsmasq.index')
+            ->with('status', Str::afterLast($request->load,"/") . ' has been imported');
     }
 
     /**
