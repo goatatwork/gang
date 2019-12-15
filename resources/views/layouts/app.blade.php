@@ -41,6 +41,8 @@
                 </div>
             </div>
 
+            <flash-message message="{{ session('status') }}"></flash-message>
+
         </div>
 
     <!-- Scripts -->
