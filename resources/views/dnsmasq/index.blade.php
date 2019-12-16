@@ -179,6 +179,10 @@
                             </div>
                         </li>
 
+                        <li class="list-group-item">
+                            <span class="fas fa-folder" style="font-size:1em;"></span>
+                            There are <span class="font-weight-bold">{{ count($tftp_files) }}</span> Files available via TFTP
+                        </li>
                     </ul>
 
                 </div>

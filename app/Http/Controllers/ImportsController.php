@@ -80,7 +80,16 @@ class ImportsController extends Controller
     public function update(Request $request)
     {
         $old = $request->load;
-        $new = 'dhcp_configs/dnsmasq.d/'.Str::afterLast($request->load,"/");
+
+        $filename = Str::afterLast($request->load,"/");
+
+        $extension = Str::afterLast($request->load,".");
+
+        if ($extension == 'img') {
+            $new = 'tftp_files/'.$filename;
+        } else {
+            $new = 'dhcp_configs/dnsmasq.d/'.$filename;
+        }
 
         Storage::disk('public')->move($old,$new);
 

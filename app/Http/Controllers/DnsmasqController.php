@@ -22,6 +22,7 @@ class DnsmasqController extends Controller
 
         $config_files = Storage::disk('public')->files('dhcp_configs/dnsmasq.d');
         $imports = Storage::disk('public')->files('imports');
+        $tftp_files = Storage::disk('public')->allFiles('tftp_files');
 
         $dockerbot = new Dockerbot();
         $container = $dockerbot->getContainer('gang_dhcp');
@@ -31,6 +32,7 @@ class DnsmasqController extends Controller
             ->with('leases_file', $leases_file)
             ->with('number_of_leases', $number_of_leases)
             ->with('config_files', $config_files)
+            ->with('tftp_files', $tftp_files)
             ->with('imports', $imports)
             ->with('container', $container);
     }
