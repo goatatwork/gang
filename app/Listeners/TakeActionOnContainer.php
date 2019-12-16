@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Bots\Dockerbot;
 use App\Events\ContainerAction;
+use App\Events\BackchannelMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -30,16 +31,19 @@ class TakeActionOnContainer
         $bot = new Dockerbot();
 
         if ($event->action == 'restart') {
-            $bot->restartContainer('gang_dhcp');
-            \Log::info('I should '.$event->action.' gang_dhcp container.');
+            $botResponse = $bot->restartContainer('gang_dhcp');
+            event(new BackchannelMessage('Dockerbot dhcp '.$event->action.' returned '.$botResponse));
+            \Log::notice('Dockerbot dhcp '.$event->action.' returned '.$botResponse);
         }
         if ($event->action == 'stop') {
-            $bot->stopContainer('gang_dhcp');
-            \Log::info('I should '.$event->action.' gang_dhcp container.');
+            $botResponse = $bot->stopContainer('gang_dhcp');
+            event(new BackchannelMessage('Dockerbot dhcp '.$event->action.' returned '.$botResponse));
+            \Log::notice('Dockerbot dhcp '.$event->action.' returned '.$botResponse);
         }
         if ($event->action == 'start') {
-            $bot->startContainer('gang_dhcp');
-            \Log::info('I should '.$event->action.' gang_dhcp container.');
+            $botResponse = $bot->startContainer('gang_dhcp');
+            event(new BackchannelMessage('Dockerbot dhcp '.$event->action.' returned '.$botResponse));
+            \Log::notice('Dockerbot dhcp '.$event->action.' returned '.$botResponse);
         }
     }
 }
