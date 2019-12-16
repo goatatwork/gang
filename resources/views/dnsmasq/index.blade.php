@@ -182,6 +182,25 @@
                         <li class="list-group-item">
                             <span class="fas fa-folder" style="font-size:1em;"></span>
                             There are <span class="font-weight-bold">{{ count($tftp_files) }}</span> Files available via TFTP
+                            <a href="#collapsable-list-of-tftp_files" data-toggle="collapse">Check them out</a>
+
+                            <div id="collapsable-list-of-tftp_files" class="row collapse">
+                                <div class="col mt-5">
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <ul class="list-group text-dark">
+                                                @foreach($tftp_files as $file)
+                                                <li class="list-group-item" style="font-size:.85rem">
+                                                    {{ \Illuminate\Support\Str::after($file,'tftp_files/') }}
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </li>
                     </ul>
 
