@@ -109,28 +109,6 @@
                         </li>
 
                         <li class="list-group-item">
-                            <span class="fas fa-cogs" style="font-size:1em;"></span>
-                            I am reading <span class="font-weight-bold">{{ count($config_files) }}</span> config files when I start.
-                            <a href="#collapsable-list-of-config-files" data-toggle="collapse">Check them out</a>
-
-                            <div id="collapsable-list-of-config-files" class="row collapse">
-                                <div class="col mt-5">
-
-                                    <ul class="list-group text-dark">
-                                        @foreach($config_files as $file)
-                                            <li class="list-group-item">
-                                                <a href="/files?load={{$file}}">
-                                                    {{ \Illuminate\Support\Str::after($file,'dhcp_configs/dnsmasq.d/') }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
                             <span class="fas fa-box" style="font-size:1em;"></span>
                             There are <span class="font-weight-bold">{{ count($imports) }}</span> files available for import.
                             <a href="#collapsable-list-of-imports" data-toggle="collapse">Check them out</a>
@@ -151,8 +129,8 @@
                                                             <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn btn-sm btn-secondary" type="submit">
-                                                                    <i class="fas fa-trash"></i>
+                                                                <button class="btn btn-sm btn-secondary mr-2" type="submit">
+                                                                    <i class="fas fa-trash"></i> Delete
                                                                 </button>
                                                             </form>
 
@@ -160,7 +138,7 @@
                                                                 @method('PATCH')
                                                                 @csrf
                                                                 <button class="btn btn-sm btn-secondary" type="submit">
-                                                                    <i class="fas fa-candy-cane"></i>
+                                                                    <i class="fas fa-file-import"></i> Import
                                                                 </button>
                                                             </form>
 
@@ -174,6 +152,28 @@
                                             <file_uploader form-action="{{ route('imports.store') }}"></file_uploader>
                                         </div>
                                     </div>
+
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <span class="fas fa-cogs" style="font-size:1em;"></span>
+                            I am reading <span class="font-weight-bold">{{ count($config_files) }}</span> config files when I start.
+                            <a href="#collapsable-list-of-config-files" data-toggle="collapse">Check them out</a>
+
+                            <div id="collapsable-list-of-config-files" class="row collapse">
+                                <div class="col mt-5">
+
+                                    <ul class="list-group text-dark">
+                                        @foreach($config_files as $file)
+                                            <li class="list-group-item">
+                                                <a href="/files?load={{$file}}">
+                                                    {{ \Illuminate\Support\Str::after($file,'dhcp_configs/dnsmasq.d/') }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
 
                                 </div>
                             </div>
