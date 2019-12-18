@@ -9,7 +9,7 @@
         @include('include.menu')
 
         <div class="col">
-            <back_channel></back_channel>
+            ...
         </div>
     </div>
 
