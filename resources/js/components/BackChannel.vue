@@ -1,14 +1,19 @@
 <template>
     <div class="row">
         <div class="col">
-            <ul class="list-unstyled">
+            <ul class="list-unstyled text-right" style="font-size:.85rem;">
                 <li>
 
                     <div class="btn-group bt-group-sm" role="group" aria-label="Toolbar">
 <!--                         <button type="button" class="btn btn-dark">One</button>
                         <button type="button" class="btn btn-dark">Three</button> -->
 
-                        <button type="button" class="btn btn-dark" @click="clearMessages">
+<!--                         <button type="button" class="btn btn-sm btn-dark" @click="clearMessages">
+                            <span class="fas fa-sync" :class="spinnerIconClasses"></span>
+                            Clear Backchannel
+                        </button> -->
+
+                        <button class="btn btn-link text-dark" @click="clearMessages">
                             <span class="fas fa-sync" :class="spinnerIconClasses"></span>
                             Clear Backchannel
                         </button>
@@ -66,7 +71,7 @@
 
             listenUp() {
                 Echo.channel('back_channel').listen('BackchannelMessage', (e) => {
-                    this.messages.push(e.message);
+                    this.messages.unshift(e.message);
                 });
             },
         }

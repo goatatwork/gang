@@ -1940,6 +1940,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1982,7 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       Echo.channel('back_channel').listen('BackchannelMessage', function (e) {
-        _this2.messages.push(e.message);
+        _this2.messages.unshift(e.message);
       });
     }
   }
@@ -49746,7 +49751,10 @@ var render = function() {
     _c("div", { staticClass: "col" }, [
       _c(
         "ul",
-        { staticClass: "list-unstyled" },
+        {
+          staticClass: "list-unstyled text-right",
+          staticStyle: { "font-size": ".85rem" }
+        },
         [
           _c("li", [
             _c(
@@ -49759,8 +49767,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-dark",
-                    attrs: { type: "button" },
+                    staticClass: "btn btn-link text-dark",
                     on: { click: _vm.clearMessages }
                   },
                   [
