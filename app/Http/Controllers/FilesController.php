@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Events\BackchannelMessage;
 
 class FilesController extends Controller
 {
@@ -51,6 +52,7 @@ class FilesController extends Controller
         $content = str_replace("</div>","",$content);
 
         Storage::disk('public')->put($request->load, $content);
+        event(new BackchannelMessage($request->load.' was saved'));
 
         return redirect()->away($request->return_to)
             ->with('status', $request->load . ' has been saved');
@@ -99,6 +101,7 @@ class FilesController extends Controller
     public function destroy(Request $request)
     {
         Storage::disk('public')->delete($request->load);
+        event(new BackchannelMessage($request->load.' was deleted'));
 
         return redirect()->route('dnsmasq.index')
             ->with('status', $request->load . ' has been deleted');

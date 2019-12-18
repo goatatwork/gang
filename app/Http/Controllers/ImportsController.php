@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Events\BackchannelMessage;
 
 class ImportsController extends Controller
 {
@@ -40,6 +41,7 @@ class ImportsController extends Controller
             foreach ($request->files_to_import as $file) {
                 if ($file->isValid()) {
                     $file->storeAs('imports',$file->getClientOriginalName(),'public');
+                    event(new BackchannelMessage('New file uploaded: '.$file->getClientOriginalName()));
                 }
             }
         }
@@ -92,6 +94,8 @@ class ImportsController extends Controller
         }
 
         Storage::disk('public')->move($old,$new);
+
+        event(new BackchannelMessage($filename.' has been imported to '.$new));
 
         return redirect()->route('dnsmasq.index')
             ->with('status', Str::afterLast($request->load,"/") . ' has been imported');
