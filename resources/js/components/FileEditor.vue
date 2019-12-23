@@ -50,7 +50,9 @@
             },
             returnTo: {
                 type: String,
-                required: false
+                default() {
+                    return '/dnsmasq'
+                }
             },
         },
 

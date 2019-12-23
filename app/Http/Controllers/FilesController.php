@@ -18,7 +18,6 @@ class FilesController extends Controller
     {
         $file = null;
         $file_name = null;
-        $return_to = $request->headers->get('referer');
 
         if ($request->load) {
             $file = Storage::disk('public')->get($request->load);
@@ -26,7 +25,7 @@ class FilesController extends Controller
             $file_name = $request->load;
         }
 
-        return view('files.index')->with('file', $file)->with('file_name', $file_name)->with('return_to', $return_to);
+        return view('files.index')->with('file', $file)->with('file_name', $file_name);
     }
 
     /**
@@ -54,8 +53,7 @@ class FilesController extends Controller
         Storage::disk('public')->put($request->load, $content);
         event(new BackchannelMessage($request->load.' was saved'));
 
-        return redirect()->away($request->return_to)
-            ->with('status', $request->load . ' has been saved');
+        return redirect()->route('dnsmasq.index')->with('status', $request->load . ' has been saved');
     }
 
     /**
