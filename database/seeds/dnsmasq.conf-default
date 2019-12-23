@@ -1,0 +1,19 @@
+port=0
+domain-needed
+bogus-priv
+user=root
+group=root
+
+dhcp-authoritative
+dhcp-lease-max=1200
+
+log-queries
+log-dhcp
+
+conf-dir=/etc/dnsmasq/dnsmasq.d/,*.conf
+
+enable-tftp
+tftp-root=/tftpboot
+tftp-no-blocksize
+
+# dhcp-script=/etc/dnsmasq/dhcp-script.sh
