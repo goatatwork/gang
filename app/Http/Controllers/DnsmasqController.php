@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Storage;
 use App\Bots\Dockerbot;
 use Illuminate\Http\Request;
+use App\Events\BackchannelMessage;
 
 class DnsmasqController extends Controller
 {
@@ -87,9 +88,18 @@ class DnsmasqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->routeIs('dnsmasq.reset')) {
+            Storage::disk('public')->delete('dhcp_configs/dnsmasq.conf');
+
+            Storage::disk('public')->copy('dhcp_configs/dnsmasq-conf-default', 'dhcp_configs/dnsmasq.conf');
+
+            event(new BackchannelMessage('The dnsmasq.conf file has been reset to defaults'));
+
+            return redirect()->route('dnsmasq.index')->with('status', 'The dnsmasq.conf file has been reset to defaults');
+        }
+        return redirect()->route('dnsmasq.index')->with('status', "I can't do that.");
     }
 
     /**

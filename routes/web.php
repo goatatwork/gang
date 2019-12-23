@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('recon', 'ReconController@index')->name('recon.index');
 Route::get('dnsmasq', 'DnsmasqController@index')->name('dnsmasq.index');
+Route::patch('dnsmasq/reset', 'DnsmasqController@update')->name('dnsmasq.reset');
 
 Route::get('files', 'FilesController@index')->name('files.index');
 Route::post('files', 'FilesController@store')->name('files.store');

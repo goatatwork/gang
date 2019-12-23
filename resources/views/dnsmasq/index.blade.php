@@ -11,204 +11,228 @@
         <div class="col">
 
             <div class="row">
-                <div class="col">
+                <div class="col font-italic" style="font-size:.85em;">
+                    @if($container['State']['Running'])
 
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <img src="https://robohash.org/Dnsmasq.png?size=75x75&set=set3" alt="Dnsmasq">
+                    <span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.25em;"></span>
+                    <span class="text-success">Dnsmasq has been running since
+                        <a-moment
+                            start="{{ $container['State']['StartedAt'] }}"
+                            :calendar="true"
+                        ></a-moment>
+                    </span>
 
-                            @if($container['State']['Running'])
+                    @else
 
-                            <span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.85em;"></span>
-                            <span class="font-weight-bold">DHCP IS RUNNING...
-                                and has been since {{ $container['State']['StartedAt'] }}
-                            </span>
+                    <span class="fas fa-radiation-alt text-secondary" style="font-size:1.25em;"></span>
+                    <span class="text-dark">Dnsmasq has not been running since
+                        <a-moment
+                            start="{{ $container['State']['FinishedAt'] }}"
+                            :calendar="true"
+                        ></a-moment>
+                    </span>
 
-                            @else
+                    @endif
 
-                            <span class="fas fa-radiation-alt text-secondary" style="font-size:1.85em;"></span>
-                            <span class="font-weight-bold">DHPC IS NOT RUNNING...
-                                and has not been running since {{ $container['State']['FinishedAt'] }}
-                            </span>
+                    <div class="btn-toolbar float-right" role="toolbar" aria-label="DNSMASQ Container Controls">
 
-                            @endif
+                        <div class="btn-group" role="group" aria-label="container power controls">
+                            <form class="form" method="POST" action="{{route('dockerbot.update')}}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="action" value="start">
+                                <button class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                            </form>
+                            <form class="form" method="POST" action="{{route('dockerbot.update')}}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="action" value="stop">
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-square"></i> Stop
+                                </button>
+                            </form>
+                            <form class="form" method="POST" action="{{route('dockerbot.update')}}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="action" value="restart">
+                                <button class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-sync"></i> Restart
+                                </button>
+                            </form>
+                        </div>
 
-                            <div class="btn-toolbar" role="toolbar" aria-label="DNSMASQ Container Controls">
-                                <div class="btn-group" role="group" aria-label="power controls">
-                                    <form class="form" method="POST" action="{{route('dockerbot.update')}}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="hidden" name="action" value="start">
-                                        <button class="btn btn-sm btn-success">
-                                            <i class="fas fa-play"></i> Start
-                                        </button>
-                                    </form>
-                                    <form class="form" method="POST" action="{{route('dockerbot.update')}}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="hidden" name="action" value="stop">
-                                        <button class="btn btn-sm btn-danger">
-                                            <i class="fas fa-square"></i> Stop
-                                        </button>
-                                    </form>
-                                    <form class="form" method="POST" action="{{route('dockerbot.update')}}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="hidden" name="action" value="restart">
-                                        <button class="btn btn-sm btn-primary">
-                                            <i class="fas fa-sync"></i> Restart
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
+                    </div>
 
-                        </li>
+                </div>
+            </div>
 
-                        <li class="list-group-item">
-                            <span class="fas fa-cog" style="font-size:1em;"></span>
-                            <button data-target="#collapsalbe-view-of-dnsmasq-conf-file"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="row mt-4 mb-5">
+                <div class="col d-flex justify-content-center">
+                    <div class="btn-toolbar" role="toolbar" aria-label="DNSMASQ Container Controls">
+
+                        <div class="btn-group" role="group" aria-label="dnsmasq config controls">
+                            <button
+                                class="btn btn-sm btn-outline-dark"
+                                data-target="#collapsalbe-view-of-dnsmasq-conf-file"
                                 data-toggle="collapse"
-                                class="btn btn-sm btn-success"
                             >
-                                <span class="fas fa-eye"></span>
-                                View the dnsmasq.conf file
+                                <i class="fas fa-eye"></i>
+                                View Config
                             </button>
 
-                            OR
-
-                            <a href="{{route('files.index')}}?load=dhcp_configs/dnsmasq.conf" class="btn btn-sm btn-primary">
-                                Edit the dnsmasq.conf file
+                            <a href="{{route('files.index')}}?load=dhcp_configs/dnsmasq.conf" class="btn btn-sm btn-outline-dark">
+                                <i class="fas fa-edit"></i>
+                                Edit Config
                             </a>
 
-                            <div id="collapsalbe-view-of-dnsmasq-conf-file" class="row collapse justify-content-center">
-                                <div class="col-11 mt-5">
+                            <form method="POST" action="{{ route('dnsmasq.reset') }}">
+                                @method('PATCH')
+                                @csrf
+                                <button class="btn btn-sm btn-outline-dark">
+                                    <i class="fas fa-sync"></i> Reset
+                                </button>
+                            </form>
+
+
+                        </div>
+
+                        <div class="btn-group ml-1" role="group" aria-label="dnsmasq leases controls">
+                            <button class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#dnsmasq-leases-modal">
+                                <i class="fas fa-tags"></i>
+                                @if ($number_of_leases == 1)
+                                {{ $number_of_leases }} lease
+                                @else
+                                {{ $number_of_leases }} leases
+                                @endif
+                            </button>
+
+                            <button class="btn btn-sm btn-outline-dark" data-toggle="collapse" data-target="#collapsable-list-of-config-files">
+                                <i class="fas fa-cogs"></i>
+                                Booting With <span class="font-weight-bold">{{ count($config_files) }}</span> Files
+                            </button>
+
+                            <button class="btn btn-sm btn-outline-dark" data-toggle="collapse" data-target="#collapsable-list-of-tftp_files">
+                                <i class="fas fa-cogs"></i>
+                                <span class="font-weight-bold">{{ count($tftp_files) }}</span> TFTP Files
+                            </button>
+
+                            <button class="btn btn-sm btn-outline-dark" data-toggle="collapse" data-target="#collapsable-list-of-imports">
+                                <i class="fas fa-file-import"></i>
+                                {{ count($imports) }} Files Uploaded
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="collapsalbe-view-of-dnsmasq-conf-file" class="row collapse">
+                <div class="col">
 <small><pre>
 {{ $server_config_file }}
 </pre></small>
-                                </div>
-                            </div>
+                </div>
+            </div>
 
-                        </li>
+            <div id="collapsable-list-of-config-files" class="row collapse">
+                <div class="col">
 
-                        <li class="list-group-item">
-                            <span class="fas fa-tags" style="font-size:1em;"></span>
-                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#dnsmasq-leases-modal">
-                                <span class="fas fa-tags" style="font-size:1em;"></span>
-                                @if ($number_of_leases == 1)
-
-                                {{ $number_of_leases }} lease
-
-                                @else
-
-                                {{ $number_of_leases }} leases
-
-                                @endif
-
-                            </button>
-                            @include('dnsmasq._leases_modal')
-                        </li>
-
-                        <li class="list-group-item">
-                            <span class="fas fa-box" style="font-size:1em;"></span>
-                            There are <span class="font-weight-bold">{{ count($imports) }}</span> files available for import.
-                            <a href="#collapsable-list-of-imports" data-toggle="collapse">Check them out</a>
-
-                            <div id="collapsable-list-of-imports" class="row collapse">
-                                <div class="col mt-5">
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <ul class="list-group text-dark">
-                                                @foreach($imports as $file)
-                                                    <li class="list-group-item" style="font-size:.85rem">
-                                                        <a href="/files?load={{$file}}">
-                                                            {{ \Illuminate\Support\Str::after($file,'imports/') }}
-                                                        </a>
-
-                                                        <div class="btn-group btn-group-sm float-right" role="group" aria-label="File Controls">
-                                                            <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn btn-sm btn-secondary mr-2" type="submit">
-                                                                    <i class="fas fa-trash"></i> Delete
-                                                                </button>
-                                                            </form>
-
-                                                            <form method="POST" action="{{ route('imports.update') }}?load={{ $file }}">
-                                                                @method('PATCH')
-                                                                @csrf
-                                                                <button class="btn btn-sm btn-secondary" type="submit">
-                                                                    <i class="fas fa-file-import"></i> Import
-                                                                </button>
-                                                            </form>
-
-                                                        </div>
-
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <div class="col">
-                                            <file_uploader form-action="{{ route('imports.store') }}"></file_uploader>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
-                            <span class="fas fa-cogs" style="font-size:1em;"></span>
-                            I am reading <span class="font-weight-bold">{{ count($config_files) }}</span> config files when I start.
-                            <a href="#collapsable-list-of-config-files" data-toggle="collapse">Check them out</a>
-
-                            <div id="collapsable-list-of-config-files" class="row collapse">
-                                <div class="col mt-5">
-
-                                    <ul class="list-group text-dark">
-                                        @foreach($config_files as $file)
-                                            <li class="list-group-item">
-                                                <a href="/files?load={{$file}}">
-                                                    {{ \Illuminate\Support\Str::after($file,'dhcp_configs/dnsmasq.d/') }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="list-group-item">
-                            <span class="fas fa-folder" style="font-size:1em;"></span>
-                            There are <span class="font-weight-bold">{{ count($tftp_files) }}</span> Files available via TFTP
-                            <a href="#collapsable-list-of-tftp_files" data-toggle="collapse">Check them out</a>
-
-                            <div id="collapsable-list-of-tftp_files" class="row collapse">
-                                <div class="col mt-5">
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <ul class="list-group text-dark">
-                                                @foreach($tftp_files as $file)
-                                                <li class="list-group-item" style="font-size:.85rem">
-                                                    {{ \Illuminate\Support\Str::after($file,'tftp_files/') }}
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
+                    <ul class="list-group text-dark">
+                        @foreach($config_files as $file)
+                            <li class="list-group-item">
+                                <a href="/files?load={{$file}}">
+                                    {{ \Illuminate\Support\Str::after($file,'dhcp_configs/dnsmasq.d/') }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
+
+                </div>
+            </div>
+
+            <div id="collapsable-list-of-tftp_files" class="row collapse">
+                <div class="col">
+
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group text-dark">
+                                @foreach($tftp_files as $file)
+                                <li class="list-group-item" style="font-size:.85rem">
+                                    {{ \Illuminate\Support\Str::after($file,'tftp_files/') }}
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="collapsable-list-of-imports" class="row collapse">
+                <div class="col">
+
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group text-dark">
+                                @foreach($imports as $file)
+                                    <li class="list-group-item" style="font-size:.85rem">
+                                        <a href="/files?load={{$file}}">
+                                            {{ \Illuminate\Support\Str::after($file,'imports/') }}
+                                        </a>
+
+                                        <div class="btn-group btn-group-sm float-right" role="group" aria-label="File Controls">
+                                            <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-sm btn-secondary mr-2" type="submit">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+
+                                            <form method="POST" action="{{ route('imports.update') }}?load={{ $file }}">
+                                                @method('PATCH')
+                                                @csrf
+                                                <button class="btn btn-sm btn-secondary" type="submit">
+                                                    <i class="fas fa-file-import"></i> Import
+                                                </button>
+                                            </form>
+
+                                        </div>
+
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <file_uploader form-action="{{ route('imports.store') }}"></file_uploader>
+                        </div>
+                    </div>
 
                 </div>
             </div>
 
         </div>
     </div>
+
+@include('dnsmasq._leases_modal')
 
 </div>
 
