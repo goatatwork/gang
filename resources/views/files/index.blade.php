@@ -8,7 +8,6 @@
         file-content="{{ $file }}"
         file-name="{{ $file_name }}"
         post-url="{{ route('files.store') }}?load={{$file_name}}"
-        return-to="{{ $return_to }}"
     ></file_editor>
 
 </div>

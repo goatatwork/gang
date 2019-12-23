@@ -9,7 +9,7 @@
         @include('include.menu')
 
         <div class="col">
-            ...
+            <a-moment></a-moment>
         </div>
     </div>
 

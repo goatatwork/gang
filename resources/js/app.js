@@ -26,6 +26,8 @@ Vue.component('file_editor', require('./components/FileEditor.vue').default);
 Vue.component('file_uploader', require('./components/FileUploader.vue').default);
 
 Vue.component('flash-message', require('./components/Flash.vue').default);
+
+Vue.component('a-moment', require('./components/AMoment.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
