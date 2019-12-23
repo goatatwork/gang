@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <p class="card-text" style="font-size:.85rem">
-                    Do you have DHCP config files that you need to import? You can place them in the project's <span class="font-weight-bold bg-warning">storage/app/public/imports</span> folder, or you can upload them here.
+                    Do you have DHCP config files that you need to import? You can place them in the <span class="font-weight-bold bg-warning">storage/app/public/imports</span> folder, or you can upload them here.
                 </p>
             </div>
         </div>
