@@ -7,25 +7,16 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\BackchannelMessage;
 
-class FilesController extends Controller
+class ImportsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $file = null;
-        $file_name = null;
-
-        if ($request->load) {
-            $file = Storage::disk('public')->get($request->load);
-            $file = str_replace("\n","<br>",$file);
-            $file_name = $request->load;
-        }
-
-        return view('files.index')->with('file', $file)->with('file_name', $file_name);
+        //
     }
 
     /**
@@ -46,14 +37,17 @@ class FilesController extends Controller
      */
     public function store(Request $request)
     {
-        $content = str_replace("<br>","\n",$request->content);
-        $content = str_replace("<div>","",$content);
-        $content = str_replace("</div>","",$content);
+        if ($request->files_to_import) {
+            foreach ($request->files_to_import as $file) {
+                if ($file->isValid()) {
+                    $file->storeAs('imports',$file->getClientOriginalName(),'public');
+                    event(new BackchannelMessage('New file uploaded: '.$file->getClientOriginalName()));
+                }
+            }
+        }
 
-        Storage::disk('public')->put($request->load, $content);
-        event(new BackchannelMessage($request->load.' was saved'));
-
-        return redirect()->route('dnsmasq.index')->with('status', $request->load . ' has been saved');
+        return redirect()->route('dnsmasq.index')
+            ->with('status', 'Upload successful');
     }
 
     /**
@@ -85,23 +79,36 @@ class FilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $old = $request->load;
+
+        $filename = Str::afterLast($request->load,"/");
+
+        $extension = Str::afterLast($request->load,".");
+
+        if ($extension == 'img') {
+            $new = 'tftp_files/'.$filename;
+        } else {
+            $new = 'dhcp_configs/dnsmasq.d/'.$filename;
+        }
+
+        Storage::disk('public')->move($old,$new);
+
+        event(new BackchannelMessage($filename.' has been imported to '.$new));
+
+        return redirect()->route('dnsmasq.index')
+            ->with('status', Str::afterLast($request->load,"/") . ' has been imported');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        Storage::disk('public')->delete($request->load);
-        event(new BackchannelMessage($request->load.' was deleted'));
-
-        return redirect()->route('dnsmasq.index')
-            ->with('status', $request->load . ' has been deleted');
+        //
     }
 }

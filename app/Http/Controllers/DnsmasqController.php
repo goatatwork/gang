@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Storage;
 use App\Bots\Dockerbot;
 use Illuminate\Http\Request;
+use App\Events\BackchannelMessage;
 
 class DnsmasqController extends Controller
 {
@@ -17,7 +18,12 @@ class DnsmasqController extends Controller
     {
         $server_config_file = Storage::disk('public')->get('dhcp_configs/dnsmasq.conf');
         $leases_file = Storage::disk('public')->get('dhcp_leases/dnsmasq.leases');
+
+        $number_of_leases = count(explode("\n", $leases_file)) - 1;
+
         $config_files = Storage::disk('public')->files('dhcp_configs/dnsmasq.d');
+        $imports = Storage::disk('public')->files('imports');
+        $tftp_files = Storage::disk('public')->allFiles('tftp_files');
 
         $dockerbot = new Dockerbot();
         $container = $dockerbot->getContainer('gang_dhcp');
@@ -25,7 +31,10 @@ class DnsmasqController extends Controller
         return view('dnsmasq.index')
             ->with('server_config_file', $server_config_file)
             ->with('leases_file', $leases_file)
+            ->with('number_of_leases', $number_of_leases)
             ->with('config_files', $config_files)
+            ->with('tftp_files', $tftp_files)
+            ->with('imports', $imports)
             ->with('container', $container);
     }
 
@@ -79,9 +88,18 @@ class DnsmasqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->routeIs('dnsmasq.reset')) {
+            Storage::disk('public')->delete('dhcp_configs/dnsmasq.conf');
+
+            Storage::disk('public')->copy('dhcp_configs/dnsmasq-conf-default', 'dhcp_configs/dnsmasq.conf');
+
+            event(new BackchannelMessage('The dnsmasq.conf file has been reset to defaults'));
+
+            return redirect()->route('dnsmasq.index')->with('status', 'The dnsmasq.conf file has been reset to defaults');
+        }
+        return redirect()->route('dnsmasq.index')->with('status', "I can't do that.");
     }
 
     /**

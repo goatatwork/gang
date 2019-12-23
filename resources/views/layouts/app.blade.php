@@ -34,12 +34,14 @@
             </div>
 
             <div class="row fixed-bottom">
-                <div class="col-4 border-top">
+                <div class="col border-top bg-light" style="height:5rem;">
 
-                    thing at bottom of page
+                    <back_channel></back_channel>
 
                 </div>
             </div>
+
+            <flash-message message="{{ session('status') }}"></flash-message>
 
         </div>
 

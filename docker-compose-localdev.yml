@@ -98,6 +98,7 @@ services:
       - dhcp_configs:/var/www/html/storage/app/public/dhcp_configs
       - dhcp_leases:/var/www/html/storage/app/public/dhcp_leases
       - tftp_files:/var/www/html/storage/app/public/tftp_files
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - gangnet
   cronish:
@@ -202,6 +203,7 @@ services:
       - dhcp_configs:/etc/dnsmasq
       - dhcp_leases:/var/lib/misc
       - tftp_files:/tftpboot
+      - ./storage/app/public/imports:/opt/imports
     # ports:
     #   - "67:67"
     #   - "67:67/udp"

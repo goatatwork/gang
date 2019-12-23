@@ -21,7 +21,7 @@ EXPOSE 69 69/udp
 
 RUN touch /var/lib/misc/dnsmasq.leases
 
-ADD dnsmasq.conf /etc/dnsmasq/dnsmasq.conf
+COPY dnsmasq.conf /etc/dnsmasq/dnsmasq.conf
 
 RUN mkdir /tftpboot
 RUN mkdir /etc/dnsmasq/dnsmasq.d
