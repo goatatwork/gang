@@ -1,0 +1,204 @@
+version: '3'
+
+networks:
+  gang_proxynet:
+    external: true
+  gangnet:
+    external: false
+
+volumes:
+  portainer_data:
+  mysql_data:
+  dhcp_configs:
+  dhcp_leases:
+  tftp_files:
+
+services:
+  traefik:
+    container_name: gang_traefik
+    image: traefik:1.7-alpine
+    labels:
+      - traefik.backend=gang_traefik
+      - traefik.frontend.rule=Host:${APP_FQDN};PathPrefixStrip:/traefik
+      - traefik.port=8080
+    networks:
+      - gang_proxynet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./docker/traefik/traefik-localdev.toml:/traefik.toml
+    ports:
+      - 80:80
+  portainer:
+    container_name: gang_portainer
+    image: portainer/portainer
+    labels:
+      - traefik.backend=gang_portainer
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefixStrip:/portainer"
+      - "traefik.frontend.redirect.regex=^(.*)/portainer$$"
+      - "traefik.frontend.redirect.replacement=$$1/portainer/"
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefix:/portainer;ReplacePathRegex: ^/portainer/(.*) /$$1"
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=9000
+    command: --templates http://templates/templates.json --host=unix:///var/run/docker.sock
+    networks:
+      - gang_proxynet
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    container_name: gang_redis
+    image: redis:alpine
+    labels:
+      - traefik.enable=false
+    networks:
+      - gangnet
+  mysql:
+    container_name: gang_mysql
+    image: mysql:5.7
+    labels:
+      - traefik.enable=false
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      TZ: ${TZ:-America/Chicago}
+    networks:
+      - gangnet
+  nginx:
+    container_name: gang_nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    image: "gang/nginx:${APP_ENV}"
+    labels:
+      - traefik.backend=gang_nginx
+      - traefik.frontend.rule=Host:${APP_FQDN}
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=80
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - gang_proxynet
+      - gangnet
+  php:
+    container_name: gang_php
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    image: "gang/php-fpm:${APP_ENV}"
+    labels:
+      - traefik.enable=false
+    volumes:
+      - ./:/var/www/html
+      - dhcp_configs:/var/www/html/storage/app/public/dhcp_configs
+      - dhcp_leases:/var/www/html/storage/app/public/dhcp_leases
+      - tftp_files:/var/www/html/storage/app/public/tftp_files
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    networks:
+      - gangnet
+  cronish:
+    container_name: gang_cronish
+    image: "gang/php-fpm:${APP_ENV}"
+    depends_on:
+      - php
+    labels:
+      - traefik.enable=false
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: cronish
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - gangnet
+    command: ./cronish.sh
+  horizon:
+    container_name: gang_horizon
+    build:
+      context: ./docker/horizon
+      dockerfile: Dockerfile
+    image: "gang/horizon:${APP_ENV}"
+    labels:
+      - traefik.enable=false
+    volumes:
+      - ./:/var/www/html:cached
+    networks:
+      - gangnet
+  socat:
+    container_name: gang_socat
+    build:
+      context: ./docker/socat
+      dockerfile: Dockerfile
+    image: "gang/socat:${APP_ENV}"
+    labels:
+      - traefik.backend=gang_socat
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefixStrip:/dockerapi"
+      - "traefik.frontend.redirect.regex=^(.*)/dockerapi$$"
+      - "traefik.frontend.redirect.replacement=$$1/dockerapi/"
+      - "traefik.frontend.rule=Host:${APP_FQDN};PathPrefix:/dockerapi;ReplacePathRegex: ^/dockerapi/(.*) /$$1"
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gang_proxynet
+      - gangnet
+    command: ["TCP4-LISTEN:2375,fork,reuseaddr", "UNIX-CONNECT:/var/run/docker.sock"]
+  dozzle:
+    container_name: gang_dozzle
+    image: amir20/dozzle:latest
+    labels:
+      - traefik.backend=gang_dozzle
+      - traefik.frontend.rule=Host:${APP_FQDN};PathPrefix:/dozzle
+      - traefik.docker.network=gang_proxynet
+      - traefik.port=8080
+    environment:
+      DOZZLE_TAILSIZE: 1000
+      DOZZLE_SHOWALL: 'true'
+      DOZZLE_BASE: /dozzle
+      DOZZLE_FILTER: name=gang_dhcp
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gang_proxynet
+  websockets-server:
+    container_name: gang_echo
+    build:
+      context: ./docker/websockets-server
+      dockerfile: Dockerfile
+    image: "gang/laravel-echo:${APP_ENV}"
+    labels:
+      - traefik.enable=true
+      - traefik.backend=gang_echo
+      - traefik.frontend.rule=Host:echo-${APP_FQDN}
+      - traefik.port=6001
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - gang_proxynet
+      - gangnet
+  dhcp:
+    container_name: gang_dhcp
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: ./docker/dnsmasq
+      dockerfile: Dockerfile
+    image: "gang/dnsmasq:${APP_ENV}"
+    labels:
+      - traefik.enable=false
+    network_mode: "host"
+    volumes:
+      - dhcp_configs:/etc/dnsmasq
+      - dhcp_leases:/var/lib/misc
+      - tftp_files:/tftpboot
+      - ./storage/app/public/imports:/opt/imports
+    ports:
+      - "67:67"
+      - "67:67/udp"
+      - "69:69"
+      - "69:69/udp"
