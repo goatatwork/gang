@@ -26,9 +26,13 @@
         <div id="app">
 
             <div class="container-fluid">
-                <div class="row pt-5 mb-5">
-
-                    @yield('content')
+                <div class="row pt-3 mb-5">
+                    <div class="col-2 pl-0">
+                        @include('include.menu')
+                    </div>
+                    <div class="col">
+                        @yield('content')
+                    </div>
 
                 </div>
             </div>

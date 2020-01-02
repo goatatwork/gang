@@ -5,8 +5,6 @@
 <div class="container">
     <div class="row">
 
-        @include('include.menu')
-
         <div class="col">
 
             <div class="card shadow" style="width:15rem;">
