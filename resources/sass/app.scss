@@ -22,3 +22,18 @@ html, body {
     color: #333;
     text-shadow: none;
 }
+
+.gang-menu-item {
+    transition: all .5s;
+}
+.gang-menu-item:hover {
+    // padding-right: 1.75rem;
+    background-color: $gray-200;
+}
+
+.gang-menu-heading {
+    transition: all .5s;
+}
+.gang-menu-heading:hover {
+    padding-left: 1.75rem;
+}
