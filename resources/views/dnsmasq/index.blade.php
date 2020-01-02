@@ -6,8 +6,6 @@
 
     <div class="row mb-5">
 
-        @include('include.menu')
-
         <div class="col">
 
             <div class="row">

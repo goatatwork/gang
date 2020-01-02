@@ -11123,3 +11123,21 @@ body {
   text-shadow: none;
 }
 
+.gang-menu-item {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.gang-menu-item:hover {
+  background-color: #e9ecef;
+}
+
+.gang-menu-heading {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.gang-menu-heading:hover {
+  padding-left: 1.75rem;
+}
+
