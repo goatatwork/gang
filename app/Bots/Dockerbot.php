@@ -34,7 +34,9 @@ class Dockerbot
     public function __construct()
     {
         $this->base_uri = 'http://socat:2375';
-        $this->api_version = 'v1.40';
+
+        $this->api_version = $this->getApiVersion();
+
         $this->path = '';
     }
 
@@ -95,5 +97,10 @@ class Dockerbot
         $assocArray = json_decode($response, true);
 
         return $assocArray;
+    }
+
+    protected function getApiVersion()
+    {
+        return 'v'.config('gang.docker_api_version');
     }
 }
