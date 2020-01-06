@@ -20,7 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('dnsmasq/events', function(\Illuminate\Http\Request $request) {
     $eventJson = $request->getContent();
     $event1 = json_decode($eventJson, true);  // good assoc array
-    $message = 'shit';
+
+    $message = implode(", ", $event1);
+
     // $message = $event1['ACTION'] . ' - ' . $event1['IP'] . ' - ' $event1['HOSTMAC'];
 
     \Log::notice($message);
