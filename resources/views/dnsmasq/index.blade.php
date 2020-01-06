@@ -32,7 +32,7 @@
 
                     @endif
 
-                    <div class="btn-toolbar float-right" role="toolbar" aria-label="DNSMASQ Container Controls">
+                    <div class="btn-toolbar" role="toolbar" aria-label="DNSMASQ Container Controls">
 
                         <div class="btn-group" role="group" aria-label="container power controls">
                             <form class="form" method="POST" action="{{route('dockerbot.update')}}">
