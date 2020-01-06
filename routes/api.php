@@ -17,13 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('dnsmasq/events', function(\Illuminate\Http\Request $request) {
-    $eventJson = $request->getContent();
-    $event1 = json_decode($eventJson, true);  // good assoc array
-
-    $message = implode(", ", $event1);
-
-    // $message = $event1['ACTION'] . ' - ' . $event1['IP'] . ' - ' $event1['HOSTMAC'];
-
-    \Log::notice($message);
-});
+Route::post('dnsmasq/events', 'DhcpEventsController@store');
