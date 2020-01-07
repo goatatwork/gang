@@ -16,7 +16,7 @@ class DhcpEventTest extends TestCase
      * @test
      * @return void
      */
-    public function DhcpEvents_have_things()
+    public function DhcpEvents_fire_BackchannelMessage_for_fake()
     {
         Event::fake();
 
@@ -32,5 +32,24 @@ class DhcpEventTest extends TestCase
         $response->assertStatus(200);
 
         Event::assertDispatched(BackchannelMessage::class);
+    }
+
+    /**
+     * @group api
+     * @test
+     * @return void
+     */
+    public function DhcpEvents_fire_BackchannelMessage_for_real()
+    {
+        $event = factory(DhcpEvent::class)->make();
+        $post_data = $event->attributesToArray();
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'X-CSRF-TOKEN' => 'LGri4hy2pGlx9wVpVvVqTHRwwavZVn2vYu2PS4a2'
+        ])->json('POST', '/api/dnsmasq/events', $post_data);
+
+        $response->assertStatus(200);
     }
 }
