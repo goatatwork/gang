@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\BackchannelMessage;
 
 class DhcpEventsController extends Controller
 {
@@ -39,6 +40,8 @@ class DhcpEventsController extends Controller
         $eventInJson = json_encode($request->json()->all(), JSON_UNESCAPED_SLASHES);
 
         $message = $eventInJson;
+
+        event(new BackchannelMessage('Dhcp action. Dhcp action.'));
 
         \Log::notice($message);
     }

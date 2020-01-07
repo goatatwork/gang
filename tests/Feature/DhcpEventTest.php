@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use App\DhcpEvent;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Events\BackchannelMessage;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DhcpEventTest extends TestCase
 {
@@ -16,6 +18,8 @@ class DhcpEventTest extends TestCase
      */
     public function DhcpEvents_have_things()
     {
+        Event::fake();
+
         $event = factory(DhcpEvent::class)->make();
         $post_data = $event->attributesToArray();
 
@@ -26,5 +30,7 @@ class DhcpEventTest extends TestCase
         ])->json('POST', '/api/dnsmasq/events', $post_data);
 
         $response->assertStatus(200);
+
+        Event::assertDispatched(BackchannelMessage::class);
     }
 }
