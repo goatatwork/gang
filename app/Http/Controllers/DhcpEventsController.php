@@ -34,9 +34,12 @@ class DhcpEventsController extends Controller
      */
     public function store(Request $request)
     {
-        $eventJson = $request->getContent();
-        $event1 = json_decode($eventJson, true);  // good assoc array
-        $message = implode(", ", $event1);
+        $event = $request->json()->all();
+
+        $eventInJson = json_encode($request->json()->all(), JSON_UNESCAPED_SLASHES);
+
+        $message = $eventInJson;
+
         \Log::notice($message);
     }
 
