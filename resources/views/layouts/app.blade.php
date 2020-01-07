@@ -30,7 +30,7 @@
                     <div class="col-2 pl-0">
                         @include('include.menu')
                     </div>
-                    <div class="col">
+                    <div class="col-10">
                         @yield('content')
                     </div>
 
