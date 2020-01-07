@@ -41,7 +41,7 @@ class DhcpEventsController extends Controller
 
         $message = $eventInJson;
 
-        event(new BackchannelMessage('Dhcp action. Dhcp action.'));
+        event(new BackchannelMessage($event['IP'].' leased to '.$event['HOSTMAC'].' until '.$event['DNSMASQ_LEASE_EXPIRES']));
 
         \Log::notice($message);
     }
