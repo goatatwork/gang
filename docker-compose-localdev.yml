@@ -167,7 +167,7 @@ services:
       DOZZLE_TAILSIZE: 1000
       DOZZLE_SHOWALL: 'true'
       DOZZLE_BASE: /dozzle
-      DOZZLE_FILTER: name=gang_dhcp
+      DOZZLE_FILTER: status=running
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
