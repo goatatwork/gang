@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\DhcpEventRequest;
 
 class DhcpEventsController extends Controller
 {
@@ -29,18 +30,12 @@ class DhcpEventsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DhcpEventRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DhcpEventRequest $request)
     {
-        $event = $request->json()->all();
-
-        $eventInJson = json_encode($request->json()->all(), JSON_UNESCAPED_SLASHES);
-
-        $message = $eventInJson;
-
-        \Log::notice($message);
+        $request->react()->record();
     }
 
     /**

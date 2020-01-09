@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Rubik');
+@import url('https://fonts.googleapis.com/css?family=Rubik|Inconsolata|Jaldi&display=swap');
 
 // Variables
 @import 'variables';
@@ -10,11 +10,15 @@
 html, body {
     background-color: $white;
     color: $dark;
-    font-family: 'Rubik';
+    font-family: 'Jaldi';
     font-size: 1em;
     font-weight: 200;
     height: 100vh;
     margin: 0;
+}
+
+pre {
+    font-family: 'Inconsolata' !important;
 }
 
 ::selection {
