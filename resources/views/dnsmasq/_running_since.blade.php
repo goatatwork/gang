@@ -1,7 +1,6 @@
 @if($container['State']['Running'])
 
-<span class="fas fa-radiation-alt fa-spin text-success" style="font-size:1.25em;"></span>
-<span class="text-success">Dnsmasq has been running since
+<span class="text-dark">DHCP <span class="font-weight-bold">UP</span> Since
     <a-moment
         start="{{ $container['State']['StartedAt'] }}"
         :calendar="true"
@@ -10,8 +9,7 @@
 
 @else
 
-<span class="fas fa-radiation-alt text-secondary" style="font-size:1.25em;"></span>
-<span class="text-dark">Dnsmasq has not been running since
+<span class="text-dark">DHCP <span class="font-weight-bold">DOWN</span> Since
     <a-moment
         start="{{ $container['State']['FinishedAt'] }}"
         :calendar="true"

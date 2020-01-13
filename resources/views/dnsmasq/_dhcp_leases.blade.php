@@ -7,10 +7,13 @@
 
                     <div class="row">
                         <div class="col">
-                            leases<br>
+
 <small><pre>
 {{ $leases_file }}
 </pre></small>
+
+                        </div>
+                    </div>
 
                 </div>
             </div>

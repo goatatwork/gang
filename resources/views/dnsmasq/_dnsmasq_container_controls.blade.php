@@ -5,7 +5,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="action" value="start">
-                                <button class="btn btn-sm btn-outline-success">
+                                <button class="btn btn-outline-dark">
                                     <i class="fas fa-play"></i> Start
                                 </button>
                             </form>
@@ -13,7 +13,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="action" value="stop">
-                                <button class="btn btn-sm btn-outline-danger">
+                                <button class="btn btn-outline-dark">
                                     <i class="fas fa-square"></i> Stop
                                 </button>
                             </form>
@@ -21,7 +21,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <input type="hidden" name="action" value="restart">
-                                <button class="btn btn-sm btn-outline-primary">
+                                <button class="btn btn-outline-dark">
                                     <i class="fas fa-sync"></i> Restart
                                 </button>
                             </form>

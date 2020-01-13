@@ -8,20 +8,20 @@
 
         <div class="col">
 
-            <div class="row">
-                <div class="col">
+            <div class="row mt-5 mb-5">
 
-                    @include('dnsmasq._dnsmasq_container_controls')
+                <div class="col text-center">
 
                     @include('dnsmasq._running_since')
 
                 </div>
-            </div>
 
-            <div class="row mt-5">
-                <div class="col">
+                <div class="col text-center">
+
+                    @include('dnsmasq._dnsmasq_container_controls')
 
                 </div>
+
             </div>
 
             @include('dnsmasq._dnsmasq_config_file')
