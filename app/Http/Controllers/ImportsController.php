@@ -46,8 +46,7 @@ class ImportsController extends Controller
             }
         }
 
-        return redirect()->route('dnsmasq.index')
-            ->with('status', 'Upload successful');
+        return back()->with('status', 'Upload successful');
     }
 
     /**
@@ -97,8 +96,7 @@ class ImportsController extends Controller
 
         event(new BackchannelMessage($filename.' has been imported to '.$new));
 
-        return redirect()->route('dnsmasq.index')
-            ->with('status', Str::afterLast($request->load,"/") . ' has been imported');
+        return back()->with('status', Str::afterLast($request->load,"/") . ' has been imported');
     }
 
     /**
