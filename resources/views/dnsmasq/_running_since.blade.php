@@ -5,6 +5,7 @@
         start="{{ $container['State']['StartedAt'] }}"
         :calendar="true"
     ></a-moment>
+    <span class="font-italic">(<a-moment start="{{ $container['State']['StartedAt'] }}" :from-now="true"></a-moment>)</span>
 </span>
 
 @else
@@ -14,6 +15,7 @@
         start="{{ $container['State']['FinishedAt'] }}"
         :calendar="true"
     ></a-moment>
+    <span class="font-italic">(<a-moment start="{{ $container['State']['FinishedAt'] }}" :from-now="true"></a-moment>)</span>
 </span>
 
 @endif

@@ -2025,6 +2025,12 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       }
     },
+    fromNow: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
     start: {
       type: String,
       "default": function _default() {
@@ -2037,7 +2043,15 @@ __webpack_require__.r(__webpack_exports__);
       return this.start ? moment(this.start) : moment();
     },
     startToDisplay: function startToDisplay() {
-      return this.calendar ? this.startTime.calendar() : this.startTime;
+      if (this.calendar) {
+        return this.startTime.calendar();
+      }
+
+      if (this.fromNow) {
+        return this.startTime.fromNow();
+      }
+
+      return this.startTime;
     }
   }
 });
