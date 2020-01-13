@@ -15,22 +15,25 @@
                             </a>
 
                             <div class="btn-group btn-group-sm float-right" role="group" aria-label="File Controls">
-                                <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-sm btn-secondary mr-2" type="submit">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-
                                 <form method="POST" action="{{ route('imports.update') }}?load={{ $file }}">
                                     @method('PATCH')
                                     @csrf
-                                    <button class="btn btn-sm btn-secondary" type="submit">
+                                    <button class="btn btn-sm btn-dark" type="submit" style="border-top-right-radius: 0;border-bottom-right-radius: 0;">
                                         <i class="fas fa-file-import"></i> Import
                                     </button>
                                 </form>
 
+                                <a href="/files/download?load={{$file}}" class="btn btn-sm btn-dark">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+
+                                <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-sm btn-dark" type="submit" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
                             </div>
 
                         </li>
