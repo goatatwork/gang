@@ -98,10 +98,25 @@ class FilesController extends Controller
      */
     public function destroy(Request $request)
     {
-        Storage::disk('public')->delete($request->load);
-        event(new BackchannelMessage($request->load.' was deleted'));
+        // Storage::disk('public')->delete($request->load);
+        event(new BackchannelMessage($request->load.' was NOT deleted'));
 
-        return redirect()->route('dnsmasq.index')
-            ->with('status', $request->load . ' has been deleted');
+        return back()->with('status', $request->load . ' has NOT been deleted');
+    }
+
+    /**
+     *Download the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function download(Request $request)
+    {
+        // Storage::disk('public')->delete($request->load);
+        event(new BackchannelMessage($request->load.' was downloaded'));
+
+        $path = Storage::disk('public')->path($request->load);
+
+        return response()->download($path);
     }
 }

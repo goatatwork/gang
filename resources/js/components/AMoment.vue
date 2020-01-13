@@ -13,6 +13,12 @@
                     return false
                 }
             },
+            fromNow: {
+                type: Boolean,
+                default() {
+                    return false
+                }
+            },
             start: {
                 type: String,
                 default() {
@@ -26,7 +32,15 @@
                 return (this.start) ? moment(this.start) : moment();
             },
             startToDisplay() {
-                return (this.calendar) ? this.startTime.calendar() : this.startTime;
+                if (this.calendar) {
+                    return this.startTime.calendar();
+                }
+
+                if (this.fromNow) {
+                    return this.startTime.fromNow();
+                }
+
+                return this.startTime;
             }
         }
     }

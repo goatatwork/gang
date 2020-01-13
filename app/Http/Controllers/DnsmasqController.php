@@ -14,7 +14,7 @@ class DnsmasqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($section = '')
     {
         $server_config_file = Storage::disk('public')->get('dhcp_configs/dnsmasq.conf');
         $leases_file = Storage::disk('public')->get('dhcp_leases/dnsmasq.leases');
@@ -35,7 +35,8 @@ class DnsmasqController extends Controller
             ->with('config_files', $config_files)
             ->with('tftp_files', $tftp_files)
             ->with('imports', $imports)
-            ->with('container', $container);
+            ->with('container', $container)
+            ->with('section', $section);
     }
 
     /**
