@@ -176,6 +176,11 @@ return [
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Gang Service Providers...
+         */
+        App\Providers\GangServiceProvider::class,
+
     ],
 
     /*
