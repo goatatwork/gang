@@ -98,10 +98,10 @@ class FilesController extends Controller
      */
     public function destroy(Request $request)
     {
-        // Storage::disk('public')->delete($request->load);
-        event(new BackchannelMessage($request->load.' was NOT deleted'));
+        Storage::disk('public')->delete($request->load);
+        event(new BackchannelMessage($request->load.' was deleted'));
 
-        return back()->with('status', $request->load . ' has NOT been deleted');
+        return back()->with('status', $request->load . ' has been deleted');
     }
 
     /**

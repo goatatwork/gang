@@ -23,22 +23,22 @@
         <a href="{{ route('dnsmasq.index', 'collapsalbe-view-of-dhcp-leases') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
-            Leases <span class="badge badge-dark text-warning">12</span>
+            Leases <span class="badge badge-dark text-warning">{{ $gang_menu['leases'] }}</span>
         </a>
         <a href="{{ route('dnsmasq.index', 'collapsable-list-of-config-files') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
-            Service Files <span class="badge badge-dark text-warning">32</span>
+            Service Files <span class="badge badge-dark text-warning">{{ $gang_menu['service_files'] }}</span>
         </a>
         <a href="{{ route('dnsmasq.index', 'collapsable-list-of-tftp_files') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
-            TFTP Files <span class="badge badge-dark text-warning">73</span>
+            TFTP Files <span class="badge badge-dark text-warning">{{ $gang_menu['tftp_files'] }}</span>
         </a>
         <a href="{{ route('dnsmasq.index', 'collapsable-list-of-imports') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
-            Import Files <span class="badge badge-dark text-warning">4</span>
+            Import Files <span class="badge badge-dark text-warning">{{ $gang_menu['import_files'] }}</span>
         </a>
     </div>
 
