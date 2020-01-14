@@ -16,25 +16,10 @@ class DnsmasqController extends Controller
      */
     public function index($section = '')
     {
-        $server_config_file = Storage::disk('public')->get('dhcp_configs/dnsmasq.conf');
-        $leases_file = Storage::disk('public')->get('dhcp_leases/dnsmasq.leases');
-
-        $number_of_leases = count(explode("\n", $leases_file)) - 1;
-
-        $config_files = Storage::disk('public')->files('dhcp_configs/dnsmasq.d');
-        $imports = Storage::disk('public')->files('imports');
-        $tftp_files = Storage::disk('public')->allFiles('tftp_files');
-
         $dockerbot = new Dockerbot();
-        $container = $dockerbot->getContainer('gang_dhcp');
+        $container = $dockerbot->getContainer(config('gang.dhcp_container_name'));
 
         return view('dnsmasq.index')
-            ->with('server_config_file', $server_config_file)
-            ->with('leases_file', $leases_file)
-            ->with('number_of_leases', $number_of_leases)
-            ->with('config_files', $config_files)
-            ->with('tftp_files', $tftp_files)
-            ->with('imports', $imports)
             ->with('container', $container)
             ->with('section', $section);
     }
@@ -92,9 +77,9 @@ class DnsmasqController extends Controller
     public function update(Request $request)
     {
         if ($request->routeIs('dnsmasq.reset')) {
-            Storage::disk('public')->delete('dhcp_configs/dnsmasq.conf');
+            Storage::disk('public')->delete(config('gang.dhcp_config_file_location'));
 
-            Storage::disk('public')->copy('dhcp_configs/dnsmasq-conf-default', 'dhcp_configs/dnsmasq.conf');
+            Storage::disk('public')->copy('dhcp_configs/dnsmasq-conf-default', config('gang.dhcp_config_file_location'));
 
             event(new BackchannelMessage('The dnsmasq.conf file has been reset to defaults'));
 
