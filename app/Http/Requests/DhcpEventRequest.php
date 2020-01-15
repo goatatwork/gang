@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\DhcpEvent;
 use Illuminate\Support\Arr;
 use App\Events\BackchannelMessage;
 use Illuminate\Foundation\Http\FormRequest;
@@ -52,6 +53,7 @@ class DhcpEventRequest extends FormRequest
         $m = $this->eventJson();
 
         \Log::notice($this->eventJson());
+        DhcpEvent::create(['message' => $m]);
 
         return $this;
     }

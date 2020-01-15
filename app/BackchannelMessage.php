@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DhcpEvent extends Model
+class BackchannelMessage extends Model
 {
     protected $fillable = ['message','active'];
 
@@ -12,7 +12,6 @@ class DhcpEvent extends Model
      * @var array
      */
     protected $casts = [
-        'message' => 'array',
         'active' => 'boolean'
     ];
 }

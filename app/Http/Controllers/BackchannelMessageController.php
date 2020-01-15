@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\BackchannelMessage;
 use Illuminate\Http\Request;
-use App\Http\Requests\DhcpEventRequest;
 
-class DhcpEventsController extends Controller
+class BackchannelMessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class DhcpEventsController extends Controller
      */
     public function index()
     {
-        //
+        $messages = BackchannelMessage::latest()->get();
+
+        return view('backchannel.index')->with('messages', $messages);
     }
 
     /**
@@ -30,21 +32,21 @@ class DhcpEventsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\DhcpEventRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DhcpEventRequest $request)
+    public function store(Request $request)
     {
-        $request->record()->react();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\BackchannelMessage  $backchannelMessage
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(BackchannelMessage $backchannelMessage)
     {
         //
     }
@@ -52,10 +54,10 @@ class DhcpEventsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\BackchannelMessage  $backchannelMessage
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BackchannelMessage $backchannelMessage)
     {
         //
     }
@@ -64,10 +66,10 @@ class DhcpEventsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\BackchannelMessage  $backchannelMessage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, BackchannelMessage $backchannelMessage)
     {
         //
     }
@@ -75,10 +77,10 @@ class DhcpEventsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\BackchannelMessage  $backchannelMessage
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BackchannelMessage $backchannelMessage)
     {
         //
     }
