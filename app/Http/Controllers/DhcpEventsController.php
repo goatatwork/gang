@@ -35,7 +35,7 @@ class DhcpEventsController extends Controller
      */
     public function store(DhcpEventRequest $request)
     {
-        $request->react()->record();
+        $request->record()->react();
     }
 
     /**
