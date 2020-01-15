@@ -82,4 +82,15 @@ return [
     */
 
    'files_for_import_location' => env('GANG_FILES_FOR_IMPORT_LOCATION', 'imports'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Timezone
+    |--------------------------------------------------------------------------
+    |
+    | The timezone to operate in
+    |
+    */
+
+    'timezone' => env('TZ', 'America/Chicago'),
 ];

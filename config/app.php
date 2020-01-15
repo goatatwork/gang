@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => config('gang.timezone', 'America/Chicago'),
 
     /*
     |--------------------------------------------------------------------------
