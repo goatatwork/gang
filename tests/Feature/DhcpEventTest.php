@@ -87,7 +87,7 @@ class DhcpEventTest extends TestCase
      * @test
      * @return void
      */
-    public function BackchannelMessages_are_stored_in_the_database()
+    public function BackchannelMessages_are_recorded_in_the_database()
     {
         $event = factory(DhcpEvent::class)->make();
         $post_data = $event->attributesToArray();
