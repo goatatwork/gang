@@ -88,7 +88,12 @@
     <!-- -->
 
 
-
+    <a href="{{ route('backchannel.index') }}"
+        class="list-group-item text-dark text-decoration-none gang-menu-heading"
+    >
+        <i class="fas fa-stream"></i>
+        Backchannel
+    </a>
 
     <a href="{{ route('recon.index') }}"
         class="list-group-item text-dark text-decoration-none gang-menu-heading"
