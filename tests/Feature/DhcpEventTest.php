@@ -81,4 +81,29 @@ class DhcpEventTest extends TestCase
 
         $this->assertCount(1, DhcpEvent::all());
     }
+
+    /**
+     * @group api
+     * @test
+     * @return void
+     */
+    public function BackchannelMessages_are_stored_in_the_database()
+    {
+        $event = factory(DhcpEvent::class)->make();
+        $post_data = $event->attributesToArray();
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'X-CSRF-TOKEN' => 'LGri4hy2pGlx9wVpVvVqTHRwwavZVn2vYu2PS4a2'
+        ])->json('POST', '/api/dnsmasq/events', $post_data);
+
+        $response->assertStatus(200);
+
+        $this->assertCount(1, DhcpEvent::all());
+
+        $this->assertCount(1, \App\BackchannelMessage::all());
+
+        $this->assertTrue((\App\BackchannelMessage::first())->active);
+    }
 }
