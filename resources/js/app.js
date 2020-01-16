@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('back_channel', require('./components/BackChannel.vue').default);
+Vue.component('back_channel_messages', require('./components/BackChannelMessages.vue').default);
 
 Vue.component('file_editor', require('./components/FileEditor.vue').default);
 
