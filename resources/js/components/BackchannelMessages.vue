@@ -19,6 +19,7 @@
         data() {
             return {
                 messageList: this.messages,
+                placeholderId: 60000
             }
         },
 
@@ -30,13 +31,15 @@
             listenUp() {
                 Echo.channel('back_channel').listen('BackchannelMessage', (e) => {
                     var newMessage = {
-                        id: 99,
+                        id: this.placeholderId,
                         active: true,
                         created_at: moment().format('YYYY-MM-DD h:mm:ss'),
                         message: e.message
                     }
 
                     this.messageList.unshift(newMessage);
+
+                    this.placeholderId = this.placeholderId + 1;
 
                 });
             },

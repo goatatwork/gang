@@ -2170,7 +2170,8 @@ var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage
   },
   data: function data() {
     return {
-      messageList: this.messages
+      messageList: this.messages,
+      placeholderId: 60000
     };
   },
   mounted: function mounted() {
@@ -2182,13 +2183,15 @@ var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage
 
       Echo.channel('back_channel').listen('BackchannelMessage', function (e) {
         var newMessage = {
-          id: 99,
+          id: _this.placeholderId,
           active: true,
           created_at: moment().format('YYYY-MM-DD h:mm:ss'),
           message: e.message
         };
 
         _this.messageList.unshift(newMessage);
+
+        _this.placeholderId = _this.placeholderId + 1;
       });
     }
   }
