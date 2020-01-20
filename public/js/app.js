@@ -2160,6 +2160,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage.vue */ "./resources/js/components/BackchannelMessage.vue")["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -2171,13 +2175,19 @@ var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage
   data: function data() {
     return {
       messageList: this.messages,
-      placeholderId: 60000
+      placeholderId: 1
     };
   },
   mounted: function mounted() {
     this.listenUp();
+    this.setPlaceholderId();
   },
   methods: {
+    dismiss: function dismiss(message) {
+      this.markRead(message);
+      var index = this.messageList.indexOf(message);
+      this.messageList.splice(index, 1);
+    },
     listenUp: function listenUp() {
       var _this = this;
 
@@ -2193,6 +2203,21 @@ var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage
 
         _this.placeholderId = _this.placeholderId + 1;
       });
+    },
+    markRead: function markRead(message) {
+      axios.patch('/backchannel/' + message.id + '/markread', message).then(function (response) {
+        console.log(response.data);
+        console.log('I just marked backchanell message ' + message.id + ' read.');
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
+    },
+    setPlaceholderId: function setPlaceholderId() {
+      if (_.orderBy(this.messages, ['id'], ['desc'])[0]) {
+        this.placeholderId = _.orderBy(this.messages, ['id'], ['desc'])[0].id + 1;
+      } else {
+        this.placeholderId = 1;
+      }
     }
   }
 });
@@ -2214,9 +2239,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     message: {}
+  },
+  data: function data() {
+    return {
+      hovering: false,
+      isBeingDisplayed: true
+    };
+  },
+  computed: {
+    dismissButtonClasses: function dismissButtonClasses() {
+      return {
+        'font-italic': this.hovering ? false : true,
+        'text-secondary': this.hovering ? false : true,
+        'text-danger': this.hovering ? true : false,
+        'mr-3': true
+      };
+    },
+    messageClasses: function messageClasses() {
+      return {
+        fade: true,
+        show: this.isBeingDisplayed
+      };
+    }
+  },
+  methods: {
+    dismiss: function dismiss() {
+      this.$emit('dismiss-message', this.message);
+    }
   }
 });
 
@@ -67745,7 +67807,8 @@ var render = function() {
     _vm._l(_vm.messageList, function(message) {
       return _c("backchannel-message", {
         key: message.id,
-        attrs: { message: message }
+        attrs: { message: message },
+        on: { "dismiss-message": _vm.dismiss }
       })
     }),
     1
@@ -67773,15 +67836,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "list-group-item" }, [
-    _vm._v(
-      "\n    " +
-        _vm._s(_vm.message.created_at) +
-        " - " +
-        _vm._s(_vm.message.message) +
-        "\n"
-    )
-  ])
+  return _c(
+    "li",
+    { staticClass: "list-group-item", class: _vm.messageClasses },
+    [
+      _c("div", { staticClass: "media" }, [
+        _c(
+          "span",
+          {
+            class: _vm.dismissButtonClasses,
+            on: {
+              mouseover: function($event) {
+                _vm.hovering = true
+              },
+              mouseleave: function($event) {
+                _vm.hovering = false
+              },
+              click: _vm.dismiss
+            }
+          },
+          [_vm._v("dismiss")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "media-body" }, [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.message.created_at) +
+              " - " +
+              _vm._s(_vm.message.message) +
+              "\n        "
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
