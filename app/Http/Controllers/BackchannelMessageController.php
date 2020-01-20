@@ -71,7 +71,11 @@ class BackchannelMessageController extends Controller
      */
     public function update(Request $request, BackchannelMessage $backchannelMessage)
     {
-        //
+        if ($request->routeIs('backchannel.markread')) {
+            $backchannelMessage->active = false;
+            $backchannelMessage->save();
+        }
+        return $backchannelMessage;
     }
 
     /**
