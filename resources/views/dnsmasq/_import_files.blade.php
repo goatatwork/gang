@@ -37,13 +37,41 @@
                                     <i class="fas fa-download"></i> Download
                                 </a>
 
-                                <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-sm btn-dark" type="submit" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
+                                <button class="btn btn-sm btn-dark mr-2" data-toggle="modal" data-target="#delete-importfile-{{$loop->iteration}}" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+
+                            <div class="modal fade"
+                                id="delete-importfile-{{$loop->iteration}}"
+                                tabindex="-1"
+                                role="dialog"
+                                aria-labelledby="delete-importfile-{{$loop->iteration}}-label"
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-dark" id="delete-importfile-{{$loop->iteration}}-label">Confirm To Delete</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <form method="POST" action="{{ route('files.destroy') }}?load={{ $file }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn btn-dark" type="submit">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </li>
