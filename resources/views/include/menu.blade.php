@@ -15,16 +15,24 @@
     </a>
 
     <div id="dhcp-menu" class="collapse {{ (Request::is('dnsmasq*')) ? 'show' : '' }} text-right">
-        <a href="{{ route('dnsmasq.index', 'collapsalbe-view-of-dnsmasq-conf-file') }}"
+        <a href="{{ route('dnsmasq.index') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
-            Server
+            Info <span class="badge badge-dark text-warning"><span class="fas fa-info-circle"></span></span>
         </a>
+
         <a href="{{ route('dnsmasq.index', 'collapsalbe-view-of-dhcp-leases') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >
             Leases <span class="badge badge-dark text-warning">{{ $gang_menu['leases'] }}</span>
         </a>
+
+        <a href="{{ route('dnsmasq.index', 'collapsalbe-view-of-dnsmasq-conf-file') }}"
+            class="list-group-item text-dark text-decoration-none gang-menu-item"
+        >
+            Config <span class="badge badge-dark text-warning"><span class="fas fa-cog"></span></span>
+        </a>
+
         <a href="{{ route('dnsmasq.index', 'collapsable-list-of-config-files') }}"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
         >

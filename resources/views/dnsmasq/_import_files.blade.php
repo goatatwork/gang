@@ -1,9 +1,19 @@
 @if($section == 'collapsable-list-of-imports')
-<div id="collapsable-list-of-imports" class="row collapse show">
+<div id="collapsable-list-of-imports" class="row collapse justify-content-center show">
 @else
-<div id="collapsable-list-of-imports" class="row collapse">
+<div id="collapsable-list-of-imports" class="row collapse justify-content-center">
 @endif
-    <div class="col">
+    <div class="col-10">
+
+        <h4 class="mb-3">Import Files</h4>
+
+        <div class="row mb-3">
+            <div class="col">
+                <p class="pr-5">
+                    This is a staging area for adding files to the server. Files can be uploaded here and then processed into their final destinations which will be in the <span class="font-weight-bold">Service Files</span> area or in the <span class="font-weight-bold">TFTP Files</span> area. Files here will <span class="font-weight-bold">NOT</span> be read when Dnsmasq starts.
+                </p>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
