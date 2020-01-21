@@ -57,13 +57,13 @@
                             </a>
                         </li>
                         <li class="mb-4 pr-5">
-                            <span class="font-weight-bold" style="font-size: 1.25em;">TFTP Files:</span> Dnsmasq is configured to serve as a TFTP server as well as it's primary role as the DHCP server. These are the files that are available via the TFTP service offered by Dnsmasq. Files are added to the server by first uploading them using the <a href="/dnsmasq/collapsable-list-of-imports" class="font-weight-bold text-dark">Import Files</a> page.
+                            <span class="font-weight-bold" style="font-size: 1.25em;">TFTP Files:</span> Dnsmasq is configured to serve as a TFTP server as well as it's primary role as the DHCP server. These are the files that are available via the TFTP service offered by Dnsmasq.
                             <a href="/dnsmasq/collapsable-list-of-tftp-files" class="ml-3 font-weight-bold text-dark">
                                 go there <span class="fas fa-share"></span>
                             </a>
                         </li>
                         <li class="mb-4 pr-5">
-                            <span class="font-weight-bold" style="font-size: 1.25em;">Import Files:</span> This is where you can upload files to the server. Once uploaded, they can be imported into either the Service Files area or into the TFTP Files area depending on its intended use.
+                            <span class="font-weight-bold" style="font-size: 1.25em;">Import Files:</span> A staging area to upload files that will then be imported into either <a href="{{ route('dnsmasq.index', 'collapsable-list-of-config-files') }}" class="font-weight-bold text-dark">Service Files</a> or <a href="{{ route('dnsmasq.index', 'collapsable-list-of-tftp_files') }}" class="font-weight-bold text-dark">TFTP Files</a>.
                             <a href="/dnsmasq/collapsable-list-of-imports" class="ml-3 font-weight-bold text-dark">
                                 go there <span class="fas fa-share"></span>
                             </a>
