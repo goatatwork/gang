@@ -2205,9 +2205,8 @@ var BackchannelMessage = Vue.extend(__webpack_require__(/*! ./BackchannelMessage
       });
     },
     markRead: function markRead(message) {
-      axios.patch('/backchannel/' + message.id + '/markread', message).then(function (response) {
-        console.log(response.data);
-        console.log('I just marked backchanell message ' + message.id + ' read.');
+      axios.patch('/backchannel/' + message.id + '/markread', message).then(function (response) {// console.log(response.data);
+        // console.log('I just marked backchanell message '+message.id+' read.');
       })["catch"](function (error) {
         console.log(error.response.data);
       });
