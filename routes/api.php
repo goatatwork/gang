@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('dnsmasq/events', 'DhcpEventsController@store');
+
+Route::post('/recon/scan', 'ReconController@scan')->name('recon.scan');
