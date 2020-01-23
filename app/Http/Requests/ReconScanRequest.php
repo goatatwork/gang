@@ -35,7 +35,7 @@ class ReconScanRequest extends FormRequest
     public function scan()
     {
         if ($this->scanType == 'system_info') {
-            $result = app('reconbot')->telnet($this->ip);
+            $result = app('reconbot')->zhoneOntSystemInfo($this->ip);
         }
 
         if ($this->scanType == 'ping') {
