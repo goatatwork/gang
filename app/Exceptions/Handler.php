@@ -34,6 +34,10 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if ($exception instanceof \Bestnetwork\Telnet\TelnetException) {
+            \Log::notice('I just noped a telnet session.');
+        }
+
         parent::report($exception);
     }
 
@@ -46,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Bestnetwork\Telnet\TelnetException) {
+            return back()->with('status', 'Cannot establish communication with ' . $request->ip)->withInput();
+        }
+
         return parent::render($request, $exception);
     }
 }
