@@ -204,8 +204,22 @@ services:
       - dhcp_leases:/var/lib/misc
       - tftp_files:/tftpboot
       - ./storage/app/public/imports:/opt/imports
-    # ports:
+    #ports:
     #   - "67:67"
     #   - "67:67/udp"
-    #   - "69:69"
-    #   - "69:69/udp"
+    #  - "69:69"
+    #  - "69:69/udp"
+  tftp-hpa:
+    container_name: gang_tftp
+    build:
+      context: ./docker/tftp-hpa
+      dockerfile: Dockerfile
+    image: "gang/tftp-hpa:${APP_ENV}"
+    labels:
+      - traefik.enable=false
+    network_mode: "host"
+    volumes:
+      - tftp_files:/tftpboot
+    ports:
+      - "69:69"
+      - "69:69/udp"

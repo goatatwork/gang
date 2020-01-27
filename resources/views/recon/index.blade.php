@@ -3,22 +3,17 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
 
-        <div class="col">
-
-            <div class="card shadow" style="width:15rem;">
-                <img src="https://robohash.org/ReconBot.png?size=150x150&bgset=bg2" class="card-img-top" alt="reconbot">
-                <div class="card-body text-center">
-                    <a href="{{route('recon.index')}}" class="card-link">
-                        RECONBOT
-                    </a>
-                </div>
-            </div>
-
+    <div class="row justify-content-center mt-5">
+        <div class="col-6 shadow">
+            <reconbot action="{{ route('recon.scan') }}"></reconbot>
         </div>
-
     </div>
+
+@error('ip')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
+
 </div>
 
 @endsection

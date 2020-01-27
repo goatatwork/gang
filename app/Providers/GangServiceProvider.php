@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\DhcpServer;
+use App\Bots\ReconBot;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,10 @@ class GangServiceProvider extends ServiceProvider
     {
         $this->app->singleton('gang.dhcp', function($app) {
             return new DhcpServer();
+        });
+
+        $this->app->bind('reconbot', function($app) {
+            return new ReconBot();
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ReconScanRequest;
 
 class ReconController extends Controller
 {
@@ -24,6 +25,17 @@ class ReconController extends Controller
     public function create()
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\ReconScanRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function scan(ReconScanRequest $request)
+    {
+        return $request->scan();
     }
 
     /**
