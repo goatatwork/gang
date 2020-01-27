@@ -7,14 +7,20 @@
         <div class="form-group">
             <div class="form-check">
                 <input class="form-check-input" type="radio" id="scanTypeRadios1" name="scanType" value="ping" v-model="formData.scanType">
-                <label class="form-check-label" for="scanTypeRadios">
+                <label class="form-check-label" for="scanTypeRadios1">
                     Ping
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" id="scanTypeRadios2" name="scanType" value="system_info" v-model="formData.scanType">
-                <label class="form-check-label" for="scanTypeRadios">
-                    Get System Info
+                <label class="form-check-label" for="scanTypeRadios2">
+                    Get System Info <span class="font-italic">(Zhone ONT)</span>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="scanTypeRadios3" name="scanType" value="bridged_mac_all" v-model="formData.scanType">
+                <label class="form-check-label" for="scanTypeRadios3">
+                    show interface bridged mac all <span class="font-italic">(Zhone ONT)</span>
                 </label>
             </div>
         </div>
@@ -25,13 +31,31 @@
             </button>
         </div>
 
-        <div class="row">
+
+        <div v-show="result.scanType == 'bridged_mac_all'" class="row">
             <div class="col">
                 <pre>
 {{ result.result }}
                 </pre>
             </div>
         </div>
+
+        <div v-show="result.scanType == 'system_info'" class="row">
+            <div class="col">
+                <pre>
+{{ result.result }}
+                </pre>
+            </div>
+        </div>
+
+        <div v-show="result.scanType == 'ping'" class="row">
+            <div class="col">
+                <pre>
+{{ result.result }}ms
+                </pre>
+            </div>
+        </div>
+
     </div>
 </template>
 

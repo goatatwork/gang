@@ -34,14 +34,18 @@ class ReconScanRequest extends FormRequest
      */
     public function scan()
     {
+        if ($this->scanType == 'bridged_mac_all') {
+            $result = app('reconbot')->zhoneOntBridgedMacAll($this->ip);
+        }
+
         if ($this->scanType == 'system_info') {
             $result = app('reconbot')->zhoneOntSystemInfo($this->ip);
         }
 
         if ($this->scanType == 'ping') {
-            $result = 'I should ping ' . $this->ip;
+            $result = app('reconbot')->ping($this->ip);
         }
 
-        return ['result' => $result];
+        return ['scanType' => $this->scanType, 'result' => $result];
     }
 }
