@@ -2548,6 +2548,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     action: {
@@ -68374,7 +68398,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "label",
-          { staticClass: "form-check-label", attrs: { for: "scanTypeRadios" } },
+          {
+            staticClass: "form-check-label",
+            attrs: { for: "scanTypeRadios1" }
+          },
           [_vm._v("\n                    Ping\n                ")]
         )
       ]),
@@ -68404,11 +68431,37 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "form-check-label", attrs: { for: "scanTypeRadios" } },
-          [_vm._v("\n                    Get System Info\n                ")]
-        )
+        _vm._m(0)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.scanType,
+              expression: "formData.scanType"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            type: "radio",
+            id: "scanTypeRadios3",
+            name: "scanType",
+            value: "bridged_mac_all"
+          },
+          domProps: {
+            checked: _vm._q(_vm.formData.scanType, "bridged_mac_all")
+          },
+          on: {
+            change: function($event) {
+              return _vm.$set(_vm.formData, "scanType", "bridged_mac_all")
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(1)
       ])
     ]),
     _vm._v(" "),
@@ -68431,14 +68484,97 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("pre", [_vm._v(_vm._s(_vm.result.result) + "\n                ")])
-      ])
-    ])
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.result.scanType == "bridged_mac_all",
+            expression: "result.scanType == 'bridged_mac_all'"
+          }
+        ],
+        staticClass: "row"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("pre", [_vm._v(_vm._s(_vm.result.result) + "\n                ")])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.result.scanType == "system_info",
+            expression: "result.scanType == 'system_info'"
+          }
+        ],
+        staticClass: "row"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("pre", [_vm._v(_vm._s(_vm.result.result) + "\n                ")])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.result.scanType == "ping",
+            expression: "result.scanType == 'ping'"
+          }
+        ],
+        staticClass: "row"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("pre", [
+            _vm._v(_vm._s(_vm.result.result) + "ms\n                ")
+          ])
+        ])
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "scanTypeRadios2" } },
+      [
+        _vm._v("\n                    Get System Info "),
+        _c("span", { staticClass: "font-italic" }, [_vm._v("(Zhone ONT)")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "scanTypeRadios3" } },
+      [
+        _vm._v("\n                    show interface bridged mac all "),
+        _c("span", { staticClass: "font-italic" }, [_vm._v("(Zhone ONT)")])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
