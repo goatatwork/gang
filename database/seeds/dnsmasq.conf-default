@@ -12,8 +12,8 @@ log-dhcp
 
 conf-dir=/etc/dnsmasq/dnsmasq.d/,*.conf
 
-enable-tftp
-tftp-root=/tftpboot
-tftp-no-blocksize
+# enable-tftp
+# tftp-root=/tftpboot
+# tftp-no-blocksize
 
 # dhcp-script=/etc/dnsmasq/dhcp-script.sh
