@@ -34,6 +34,14 @@ class ReconScanRequest extends FormRequest
      */
     public function scan()
     {
+        if ($this->scanType == 'show_interface_ethernet_all') {
+            $result = app('reconbot')->zhoneOntShowInterfaceEthernetAll($this->ip);
+        }
+
+        if ($this->scanType == 'show_interface_ethernet_status_all') {
+            $result = app('reconbot')->zhoneOntShowInterfaceEthernetStatusAll($this->ip);
+        }
+
         if ($this->scanType == 'bridged_mac_all') {
             $result = app('reconbot')->zhoneOntBridgedMacAll($this->ip);
         }

@@ -23,6 +23,18 @@
                     show interface bridged mac all <span class="font-italic">(Zhone ONT)</span>
                 </label>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="scanTypeRadios4" name="scanType" value="show_interface_ethernet_all" v-model="formData.scanType">
+                <label class="form-check-label" for="scanTypeRadios4">
+                    show interface ethernet all <span class="font-italic">(Zhone ONT)</span>
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="scanTypeRadios5" name="scanType" value="show_interface_ethernet_status_all" v-model="formData.scanType">
+                <label class="form-check-label" for="scanTypeRadios5">
+                    show interface ethernet status all <span class="font-italic">(Zhone ONT)</span>
+                </label>
+            </div>
         </div>
         <div class="form-group">
             <button class="btn btn-success form-control" @click.stop="submit">
@@ -33,6 +45,22 @@
 
 
         <div v-show="result.scanType == 'bridged_mac_all'" class="row">
+            <div class="col">
+                <pre>
+{{ result.result }}
+                </pre>
+            </div>
+        </div>
+
+        <div v-show="result.scanType == 'show_interface_ethernet_all'" class="row">
+            <div class="col">
+                <pre>
+{{ result.result }}
+                </pre>
+            </div>
+        </div>
+
+        <div v-show="result.scanType == 'show_interface_ethernet_status_all'" class="row">
             <div class="col">
                 <pre>
 {{ result.result }}
