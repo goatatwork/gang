@@ -2572,6 +2572,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     action: {
@@ -68462,6 +68490,80 @@ var render = function() {
         }),
         _vm._v(" "),
         _vm._m(1)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.scanType,
+              expression: "formData.scanType"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            type: "radio",
+            id: "scanTypeRadios4",
+            name: "scanType",
+            value: "show_interface_ethernet_all"
+          },
+          domProps: {
+            checked: _vm._q(
+              _vm.formData.scanType,
+              "show_interface_ethernet_all"
+            )
+          },
+          on: {
+            change: function($event) {
+              return _vm.$set(
+                _vm.formData,
+                "scanType",
+                "show_interface_ethernet_all"
+              )
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(2)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.formData.scanType,
+              expression: "formData.scanType"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            type: "radio",
+            id: "scanTypeRadios5",
+            name: "scanType",
+            value: "show_interface_ethernet_status_all"
+          },
+          domProps: {
+            checked: _vm._q(
+              _vm.formData.scanType,
+              "show_interface_ethernet_status_all"
+            )
+          },
+          on: {
+            change: function($event) {
+              return _vm.$set(
+                _vm.formData,
+                "scanType",
+                "show_interface_ethernet_status_all"
+              )
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(3)
       ])
     ]),
     _vm._v(" "),
@@ -68493,6 +68595,47 @@ var render = function() {
             rawName: "v-show",
             value: _vm.result.scanType == "bridged_mac_all",
             expression: "result.scanType == 'bridged_mac_all'"
+          }
+        ],
+        staticClass: "row"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("pre", [_vm._v(_vm._s(_vm.result.result) + "\n                ")])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.result.scanType == "show_interface_ethernet_all",
+            expression: "result.scanType == 'show_interface_ethernet_all'"
+          }
+        ],
+        staticClass: "row"
+      },
+      [
+        _c("div", { staticClass: "col" }, [
+          _c("pre", [_vm._v(_vm._s(_vm.result.result) + "\n                ")])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.result.scanType == "show_interface_ethernet_status_all",
+            expression:
+              "result.scanType == 'show_interface_ethernet_status_all'"
           }
         ],
         staticClass: "row"
@@ -68570,6 +68713,32 @@ var staticRenderFns = [
       { staticClass: "form-check-label", attrs: { for: "scanTypeRadios3" } },
       [
         _vm._v("\n                    show interface bridged mac all "),
+        _c("span", { staticClass: "font-italic" }, [_vm._v("(Zhone ONT)")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "scanTypeRadios4" } },
+      [
+        _vm._v("\n                    show interface ethernet all "),
+        _c("span", { staticClass: "font-italic" }, [_vm._v("(Zhone ONT)")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-check-label", attrs: { for: "scanTypeRadios5" } },
+      [
+        _vm._v("\n                    show interface ethernet status all "),
         _c("span", { staticClass: "font-italic" }, [_vm._v("(Zhone ONT)")])
       ]
     )

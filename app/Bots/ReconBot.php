@@ -37,6 +37,36 @@ class ReconBot {
         return false;
     }
 
+    public function zhoneOntShowInterfaceEthernetAll($ip)
+    {
+        $telnet = new Telnet($ip);
+
+        if ($telnet->login('admin','password')) {
+            $telnet->setPrompt('#');
+
+            $telnet->execute('en','#');
+
+            return $telnet->execute("show interface ethernet all","#");
+        }
+
+        return false;
+    }
+
+    public function zhoneOntShowInterfaceEthernetStatusAll($ip)
+    {
+        $telnet = new Telnet($ip);
+
+        if ($telnet->login('admin','password')) {
+            $telnet->setPrompt('#');
+
+            $telnet->execute('en','#');
+
+            return $telnet->execute("show interface ethernet status all","#");
+        }
+
+        return false;
+    }
+
     public function ping($ip)
     {
         $host = $ip;
