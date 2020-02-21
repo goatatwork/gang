@@ -59,14 +59,7 @@
         System
     </a>
 
-    <div id="system-menu" class="collapse text-right">
-        <a href="{{ route('horizon.index') }}"
-            target="_blank"
-            class="list-group-item text-dark text-decoration-none gang-menu-item"
-        >
-            <i class="fab fa-laravel"></i>
-            Horizon
-        </a>
+    <div id="system-menu" class="collapse {{ (Request::is('backups*')) ? 'show' : '' }} text-right">
 
         <a href="/traefik"
             target="_blank"
@@ -84,6 +77,22 @@
             <i class="fab fa-docker"></i>
             Dozzle
         </a>
+
+        <a href="/backups"
+            class="list-group-item text-dark text-decoration-none gang-menu-item"
+        >
+            <i class="fas fa-coins"></i>
+            Backups
+        </a>
+
+        <a href="{{ route('horizon.index') }}"
+            target="_blank"
+            class="list-group-item text-dark text-decoration-none gang-menu-item"
+        >
+            <i class="fab fa-laravel"></i>
+            Horizon
+        </a>
+
         <a href="/portainer"
             target="_blank"
             class="list-group-item text-dark text-decoration-none gang-menu-item"
