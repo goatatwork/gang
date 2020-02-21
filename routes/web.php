@@ -15,6 +15,12 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('recon', 'ReconController@index')->name('recon.index');
 
+Route::get('backups', 'BackupsController@index')->name('backups.index');
+Route::post('backups', 'BackupsController@store')->name('backups.create');
+Route::get('backups/{snapshot}/load', 'BackupsController@load')->name('backups.load');
+Route::delete('backups/{snapshot}', 'BackupsController@destroy')->name('backups.destroy');
+Route::get('backups/{snapshot}/download', 'BackupsController@download')->name('backups.download');
+
 Route::get('dnsmasq/{section?}', 'DnsmasqController@index')->name('dnsmasq.index');
 Route::patch('dnsmasq/reset', 'DnsmasqController@update')->name('dnsmasq.reset');
 
