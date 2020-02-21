@@ -66,7 +66,7 @@ return [
 
         'snapshots' => [
             'driver' => 'local',
-            'root' => database_path('snapshots')
+            'root' => storage_path('app/snapshots')
         ],
 
     ],
