@@ -14,7 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+
+        return view('provisioning.customers.index')->with('customers',$customers);
     }
 
     /**

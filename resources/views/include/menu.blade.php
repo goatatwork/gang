@@ -50,9 +50,6 @@
         </a>
     </div>
 
-
-
-
     <!-- -->
     <a href="#system-menu" data-toggle="collapse" class="list-group-item text-dark text-decoration-none gang-menu-heading">
         <i class="fas fa-cogs"></i>
@@ -102,8 +99,23 @@
         </a>
     </div>
 
-    <!-- -->
 
+    <!-- -->
+    <a href="#provisioning-menu" data-toggle="collapse" class="list-group-item text-dark text-decoration-none gang-menu-heading">
+        <i class="fas fa-blender"></i>
+        Provisioning
+    </a>
+
+    <div id="provisioning-menu" class="collapse {{ (Request::is('provisioning*')) ? 'show' : '' }} text-right">
+        <a href="{{ route('customers.index') }}"
+            class="list-group-item text-dark text-decoration-none gang-menu-item"
+        >
+            <i class="fas fa-users"></i>
+            Customers
+        </a>
+    </div>
+
+    <!-- -->
 
     <a href="{{ route('backchannel.index') }}"
         class="list-group-item text-dark text-decoration-none gang-menu-heading"
