@@ -102,7 +102,7 @@
 
     <!-- -->
     <a href="#provisioning-menu" data-toggle="collapse" class="list-group-item text-dark text-decoration-none gang-menu-heading">
-        <i class="fas fa-blender"></i>
+        <i class="fas fa-shipping-fast"></i>
         Provisioning
     </a>
 
