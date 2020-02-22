@@ -69,6 +69,11 @@ return [
             'root' => storage_path('app/snapshots')
         ],
 
+        'customer_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/customer_files')
+        ],
+
     ],
 
 ];
