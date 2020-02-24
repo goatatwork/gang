@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class CustomerController extends Controller
 {
@@ -14,7 +16,36 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::paginate(25);
+        $customers = QueryBuilder::for(Customer::class)->allowedFilters([
+            AllowedFilter::exact('id'),
+            'name',
+            'poc_name',
+            'poc_email',
+            'phone1',
+            'phone2',
+            'address1',
+            'address2',
+            'city',
+            'state',
+            'zip',
+            'notes',
+            'created_at',
+            'updated_at'
+        ])->allowedSorts([
+            'name',
+            'poc_name',
+            'poc_email',
+            'phone1',
+            'phone2',
+            'address1',
+            'address2',
+            'city',
+            'state',
+            'zip',
+            'notes',
+            'created_at',
+            'updated_at'
+        ])->paginate(25);
 
         return view('provisioning.customers.index')->with('customers',$customers);
     }
