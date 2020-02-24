@@ -37,6 +37,12 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+
             <div class="row fixed-bottom">
                 <div class="col border-top bg-light" style="height:5rem;">
 

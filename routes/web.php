@@ -15,6 +15,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('recon', 'ReconController@index')->name('recon.index');
 
+Route::prefix('provisioning')->group(function() {
+    Route::get('customers', 'CustomerController@index')->name('customers.index');
+});
+
 Route::get('backups', 'BackupsController@index')->name('backups.index');
 Route::post('backups', 'BackupsController@store')->name('backups.create');
 Route::get('backups/{snapshot}/load', 'BackupsController@load')->name('backups.load');
