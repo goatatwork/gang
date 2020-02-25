@@ -31,12 +31,19 @@
                                 <div class="form-group">
                                     <label for="sort-input">Sort By</label>
                                     <select id="sort-input" class="custom-select" name="sort">
+                                        <option value="">Select One</option>
                                         <option value="name">name</option>
                                         <option value="-name">name desc</option>
                                         <option value="address1">address1</option>
                                         <option value="-address1">address1 desc</option>
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="id-input">Find by</label>
+                                    <input id="id-input" type="text" name="filter[id]" class="form-control" placeholder="ID..." value="">
+                                </div>
+
                                 <div class="form-group">
                                     <button class="btn btn-sm btn-dark" type="submit">Go</button>
                                 </div>
