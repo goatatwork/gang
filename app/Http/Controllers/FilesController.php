@@ -53,7 +53,8 @@ class FilesController extends Controller
         Storage::disk('public')->put($request->load, $content);
         event(new BackchannelMessage($request->load.' was saved'));
 
-        return redirect()->route('dnsmasq.index')->with('status', $request->load . ' has been saved');
+         return redirect('/files?load='.$request->load)
+            ->with('status', $request->load . ' has been saved');
     }
 
     /**
