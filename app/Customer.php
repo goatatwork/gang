@@ -23,4 +23,9 @@ class Customer extends Model implements HasMedia
         'zip',
         'notes',
     ];
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('dhcp_configs')->useDisk('customer_files');
+    }
 }
