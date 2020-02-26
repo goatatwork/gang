@@ -23,4 +23,18 @@ class CustomerTest extends TestCase
         $this->assertDatabaseHas('customers', $customer->toArray());
     }
 
+    /**
+     * @group customers
+     * @test
+     * @return void
+     */
+    public function test_A_customer_has_a_MediaCollection_named_dhcp_configs()
+    {
+        $customer = factory(Customer::class)->create();
+
+        $this->assertNotNull($customer->getMediaCollection('dhcp_configs'));
+
+        $this->assertInstanceOf('Spatie\MediaLibrary\MediaCollection\MediaCollection', $customer->getMediaCollection('dhcp_configs'));
+    }
+
 }
