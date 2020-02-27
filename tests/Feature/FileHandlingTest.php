@@ -60,25 +60,4 @@ class FileHandlingTest extends TestCase
         Storage::disk('public')->assertExists('goat.txt');
     }
 
-    /**
-     * @group files
-     * @test
-     * @return void
-     */
-    public function test_A_file_stored_by_FilesController_is_accessible_via_its_url()
-    {
-        Event::fake();
-        Storage::fake('public');
-
-        $response = $this->get(route('files.index'));
-
-        $formData = ['load' => 'goat.txt','content' => 'Content XYZ'];
-        $response = $this->post(route('files.store'), $formData);
-
-        $response->assertStatus(302);
-
-        $visit2 = $this->get(route('files.index'));
-
-        $visit2->assertStatus(200);
-    }
 }
