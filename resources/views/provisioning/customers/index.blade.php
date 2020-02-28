@@ -27,8 +27,8 @@
 
                     <div class="row">
                         <div class="col-auto">
-                            <form action="{{ route('customers.index') }}" method="GET">
-                                <div class="form-group">
+                            <form action="{{ route('customers.index') }}" method="GET" class="form-inline">
+                                <div class="form-group mr-5">
                                     <label for="sort-input">Sort By</label>
                                     <select id="sort-input" class="custom-select" name="sort">
                                         <option value="">Select One</option>
@@ -39,7 +39,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mr-5">
                                     <label for="id-input">Find by</label>
                                     <input id="id-input" type="text" name="filter[id]" class="form-control" placeholder="ID..." value="">
                                 </div>
