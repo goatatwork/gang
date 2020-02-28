@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use App\OwnsDhcpFilesTrait as OwnsDhcpFiles;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Customer extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, OwnsDhcpFiles;
 
     protected $fillable = [
         'name',
