@@ -71,7 +71,7 @@ return [
 
         'customer_files' => [
             'driver' => 'local',
-            'root' => storage_path('app/customer_files')
+            'root' => storage_path('app/public/customer_files')
         ],
 
     ],
