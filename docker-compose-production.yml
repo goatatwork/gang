@@ -7,6 +7,7 @@ networks:
     external: false
 
 volumes:
+  customer_files:
   portainer_data:
   mysql_data:
   dhcp_configs:
@@ -95,6 +96,7 @@ services:
       - traefik.enable=false
     volumes:
       - ./:/var/www/html
+      - customer_files:/var/www/html/storage/app/public/customer_files
       - dhcp_configs:/var/www/html/storage/app/public/dhcp_configs
       - dhcp_leases:/var/www/html/storage/app/public/dhcp_leases
       - tftp_files:/var/www/html/storage/app/public/tftp_files
