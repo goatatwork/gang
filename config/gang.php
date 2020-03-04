@@ -26,6 +26,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | DHCP disk
+    |--------------------------------------------------------------------------
+    |
+    | The disk to use to store DHCP files. The work will be done in the
+    | dhcp_configs/ directory under this disk.
+    |
+    */
+
+   'dhcp_default_disk' => env('GANG_DHCP_DEFAULT_DISK', 'public'),
+
+    /*
+    |--------------------------------------------------------------------------
     | DHCP config file
     |--------------------------------------------------------------------------
     |
@@ -82,6 +94,19 @@ return [
     */
 
    'files_for_import_location' => env('GANG_FILES_FOR_IMPORT_LOCATION', 'imports'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Customer Generated DHCP files
+    |--------------------------------------------------------------------------
+    |
+    | The location (relative to the 'public' disk) of the directory used for
+    | dhcp files to be written to when provisioning customers. I.E. the
+    | directory MediaLibrary is operating in.
+    |
+    */
+
+   'dhcp_generated_files_location' => env('GANG_DHCP_GENERATED_FILES_LOCATION', 'customer_files'),
 
     /*
     |--------------------------------------------------------------------------
