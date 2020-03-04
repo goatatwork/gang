@@ -3,6 +3,7 @@
 namespace App;
 
 use Storage;
+use \Spatie\MediaLibrary\Models\Media;
 
 class DhcpServer
 {
@@ -60,6 +61,28 @@ class DhcpServer
         $this->service_files = $this->getServiceFiles();
         $this->tftp_files = $this->getTftpFiles();
         $this->files_for_import = $this->getFilesForImport();
+    }
+
+    /**
+     * Copy new customer file into dhcp server directory
+     * @param \Spatie\MediaLibrary\Models\Media $media
+     */
+    public function addServiceFile(Media $media)
+    {
+        $old = config('gang.dhcp_generated_files_location') . '/' . $media->id . '/' . $media->file_name;
+        $new = config('gang.dhcp_service_files_location') . '/' . $media->file_name;
+
+        // \Log::notice('Copy ' . $old . ' to ' . $new);
+        Storage::disk('public')->copy($old,$new);
+    }
+
+    /**
+     * @param string $file like dhcp_configs/dnsmasq.d/zhone_management-192_168_10_1-c_2.conf
+     * @return  boolean
+     */
+    public function removeServiceFile(string $file)
+    {
+        return Storage::disk('public')->delete($file);
     }
 
     /**
