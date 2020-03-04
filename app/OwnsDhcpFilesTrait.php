@@ -8,14 +8,6 @@ use Illuminate\Support\Str;
 trait OwnsDhcpFilesTrait
 {
     /**
-     * @return boolean
-     */
-    public function getProvisionedAttribute()
-    {
-        return ($this->getMedia('dhcp_configs')->last()) ? true : false;
-    }
-
-    /**
      * Creates the file format for the dhcp files. It is important that the
      * template be the first part of the file, followed immediately by a dash.
      * Also, the very end of the filename should be a dash, and then a model

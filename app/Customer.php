@@ -29,4 +29,12 @@ class Customer extends Model implements HasMedia
     {
         $this->addMediaCollection('dhcp_configs')->useDisk('customer_files');
     }
+
+    /**
+     * @return boolean
+     */
+    public function getProvisionedAttribute()
+    {
+        return ($this->getMedia('dhcp_configs')->last()) ? true : false;
+    }
 }
