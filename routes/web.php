@@ -17,6 +17,9 @@ Route::get('recon', 'ReconController@index')->name('recon.index');
 
 Route::prefix('provisioning')->group(function() {
     Route::get('customers', 'CustomerController@index')->name('customers.index');
+    Route::get('customers/{customer}', 'CustomerController@show')->name('customers.show');
+    Route::post('customers/{customer}', 'CustomerProvisioningController@store')->name('customers.provision');
+    Route::delete('customers/{customer}', 'CustomerProvisioningController@destroy')->name('customers.unprovision');
 });
 
 Route::get('backups', 'BackupsController@index')->name('backups.index');

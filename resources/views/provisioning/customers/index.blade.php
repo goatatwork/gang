@@ -61,7 +61,9 @@
                                         <div class="row">
                                             <div class="col">
 
-                                                <span class="h4 mt-0">{{$customer->name}}</span>
+                                                <span class="h4 mt-0">
+                                                    <a href="{{ route('customers.show', ['customer' => $customer]) }}" class="text-dark">{{$customer->name}}</a>
+                                                </span>
 
                                                 <address style="font-size:.85rem;">
                                                     <a href="#address-{{$customer->id}}"
@@ -92,8 +94,16 @@
                                                 <span class="far fa-address-card mt-5 text-secondary" style="font-size: 3rem;"></span>
                                                 @endif
                                             </div>
-                                            <div class="col">
-
+                                            <div class="col pt-3">
+                                                @if($customer->provisioned)
+                                                <button class="btn btn-danger" data-toggle="modal" data-target="#management-provisioning-modal-{{ $customer->id }}">
+                                                    Unprovision
+                                                </button>
+                                                @else
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#management-provisioning-modal-{{ $customer->id }}">
+                                                    Provision
+                                                </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -113,6 +123,10 @@
 
         </div>
     </div>
+
+    @foreach($customers as $customer)
+        @include('provisioning.customers._management_provisioning_modal')
+    @endforeach
 </div>
 
 @endsection
