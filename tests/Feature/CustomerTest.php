@@ -74,6 +74,7 @@ class CustomerTest extends TestCase
         Event::fake();
         Storage::fake('public');
         Storage::fake('customer_files');
+
         $this->seed(DnsmasqConfigTestSeeder::class);
 
         $customer = factory(Customer::class)->create();
@@ -94,7 +95,7 @@ class CustomerTest extends TestCase
      */
     public function test_Customer_can_create_and_delete_zhone_management_dhcp_config_files()
     {
-        $this->seed(DnsmasqConfigTestSeeder::class);
+        // $this->seed(DnsmasqConfigTestSeeder::class);
 
         $customer = factory(Customer::class)->create();
 
