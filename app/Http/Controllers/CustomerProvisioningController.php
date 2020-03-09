@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use Illuminate\Http\Request;
 use App\Events\BackchannelMessage;
+use App\Http\Requests\CustomerProvisioningRequest;
 
 class CustomerProvisioningController extends Controller
 {
@@ -31,12 +32,13 @@ class CustomerProvisioningController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\CustomerProvisioningRequest  $request
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Customer $customer)
+    public function store(CustomerProvisioningRequest $request, Customer $customer)
     {
+        dd('store');
         $customer->provisionDhcp($request->template, $request->ip, $request->subscriber_id);
 
         event(new BackchannelMessage('Provisioning '.$customer->poc_name.' at '.$request->ip.'.'));
