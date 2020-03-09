@@ -38,7 +38,6 @@ class CustomerProvisioningController extends Controller
      */
     public function store(CustomerProvisioningRequest $request, Customer $customer)
     {
-        dd('store');
         $customer->provisionDhcp($request->template, $request->ip, $request->subscriber_id);
 
         event(new BackchannelMessage('Provisioning '.$customer->poc_name.' at '.$request->ip.'.'));
