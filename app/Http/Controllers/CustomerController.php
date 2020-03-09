@@ -79,7 +79,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('provisioning.customers.show')->with('customer',$customer);
     }
 
     /**
