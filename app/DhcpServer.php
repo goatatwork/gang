@@ -72,7 +72,6 @@ class DhcpServer
         $old = config('gang.dhcp_generated_files_location') . '/' . $media->id . '/' . $media->file_name;
         $new = config('gang.dhcp_service_files_location') . '/' . $media->file_name;
 
-        // \Log::notice('Copy ' . $old . ' to ' . $new);
         Storage::disk('public')->copy($old,$new);
     }
 
