@@ -8,6 +8,42 @@ use Illuminate\Support\Str;
 trait OwnsDhcpFilesTrait
 {
     /**
+     * Get dhcp files for this model
+     * @param  string|null $template List all files or all file created by a particular template
+     * @return collection
+     */
+    public function dhcpFiles(string $template = null)
+    {
+        if (! $template) {
+            return $this->getFilesThatIOwn();
+        }
+
+        return $this->getFilesOfTemplateThatIOwn($template);
+    }
+
+    /**
+     * @param  string|null $template
+     * @return collection                Collection of filenames
+     */
+    protected function getFilesThatIOwn()
+    {
+        return $this->filesOnServer()->filter(function($file) {
+            return $this->getModelIdFromFilename($file) == $this->id;
+        });
+    }
+
+    /**
+     * @param  string|null $template
+     * @return collection                Collection of filenames
+     */
+    protected function getFilesOfTemplateThatIOwn(string $template = null)
+    {
+        return $this->filesOnServer()->filter(function($file) use ($template) {
+            return $this->getModelIdFromFilename($file) == $this->id && $this->getTemplateFromFilename($file) == $template;
+        });
+    }
+
+    /**
      * Creates the file format for the dhcp files. It is important that the
      * template be the first part of the file, followed immediately by a dash.
      * Also, the very end of the filename should be a dash, and then a model
@@ -37,27 +73,15 @@ trait OwnsDhcpFilesTrait
 
         $path = $this->getTempDisk()->path($this->getTempDestination($template, $ip));
 
-        $file = $this->addMedia($path)->toMediaCollection('dhcp_configs'); // this fires MediaHasBeenAdded;
+        $file = $this->addMedia($path)
+            ->withCustomProperties([
+                'template' => $template,
+                'ip' => $ip,
+                'subscriber_id' => $subscriber_id
+            ])
+            ->toMediaCollection('dhcp_configs'); // this fires MediaHasBeenAdded;
 
         return $file;
-    }
-
-    /**
-     * Get dhcp files for this model
-     * @param  string|null $template List all files or all file created by a particular template
-     * @return collection
-     */
-    public function dhcpFiles(string $template = null)
-    {
-        if (! $template) {
-            return $this->filesOnServer()->filter(function($file) {
-                return $this->getModelIdFromFilename($file) == $this->id;
-            });
-        }
-
-        return $this->filesOnServer()->filter(function($file) use ($template) {
-            return $this->getModelIdFromFilename($file) == $this->id && $this->getTemplateFromFilename($file) == $template;
-        });
     }
 
     /**
